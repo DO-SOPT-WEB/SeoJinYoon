@@ -110,9 +110,6 @@ input[id='cb2'] {
 }
 input[id='cb1'] + label,
 input[id='cb2'] + label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   display: inline-block;
   position: relative;
   width: 80px;
@@ -120,7 +117,6 @@ input[id='cb2'] + label {
   border-radius: 10px;
   border: 1px solid gray;
   background-color: white;
-  
 }
 .cb1-label,
 .cb2-label {
