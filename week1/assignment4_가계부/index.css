@@ -99,8 +99,9 @@ header > h1 {
   font-size: 1rem;
 }
 .outcome-btn {
-  margin-right: 0.188rem;
+  margin-right: 3px;
 }
+
 
 /* checkbox custom */
 input[id='cb1'],
@@ -109,26 +110,36 @@ input[id='cb2'] {
 }
 input[id='cb1'] + label,
 input[id='cb2'] + label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   display: inline-block;
   position: relative;
-  width: 5rem;
-  height: 2rem;
+  width: 80px;
+  height: 32px;
   border-radius: 10px;
-  background-color: gray;
+  border: 1px solid gray;
+  background-color: white;
+  
 }
 .cb1-label,
 .cb2-label {
   position: absolute;
-  top: 9px;
-  right: 25.5px;
+  top: 8px;
+  right: 26.5px;
 }
 input[id='cb1']:checked + label,
 input[id='cb2']:checked + label {
   background-color: palevioletred;
+  width: 82px;
+  height: 34px;
+  border: none;
 }
 
 /* inout-list */
 .inout-list {
+  display: flex;  
+  flex-direction: column;
   height: calc(100vh - 3rem - 23.5rem);
   padding: 0 1.5rem;
   margin-top: 0.5rem;
