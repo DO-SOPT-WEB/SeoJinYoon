@@ -124,6 +124,7 @@ nav > div:nth-child(2) > a:hover {
   flex-grow: 1;
 }
 
+/* 호버시 나타나는 div */
 .img_hover_container > .caption {
   width: 100%;
   height: 100%;
@@ -140,10 +141,12 @@ nav > div:nth-child(2) > a:hover {
   color: #fff;
   text-align: center;
 
+  /* 투명도 0 주고 호버시 1이 되어 보이도록 설정 */
   opacity: 0;
   transition: 0.3s;
 }
 
+/* 캡션 내용 정렬 */
 .caption > .caption_title {
   margin-bottom: 3rem;
 }
@@ -151,15 +154,14 @@ nav > div:nth-child(2) > a:hover {
   padding: 0 1.5rem;
 }
 
-.img_hover_container:hover .caption, .img_hover_container:focus .caption {
+.img_hover_container:hover .caption, 
+.img_hover_container:focus .caption {
   opacity: 1;
 }
 
 .img_hover_container:hover {
-  opacity: 1;
   transform: translateY(-8px);
 }
-
 
 .content1-img {
   height: 15rem;
