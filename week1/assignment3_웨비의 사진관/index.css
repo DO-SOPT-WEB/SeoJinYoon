@@ -119,10 +119,9 @@ nav > div:nth-child(2) > a:hover {
 }
 /* content2 */
 .content2-container {
-  max-width: 90%;
     display: flex;
     flex: row;
-    padding: 0 5%;
+    padding: 0 80px;
 }
 .content-left{
     width: 50%;
@@ -143,6 +142,7 @@ nav > div:nth-child(2) > a:hover {
     width: calc( (100% - 10px) / 2 );
     height: calc( (40rem - 10px) / 2 );
     object-fit: cover;
+    flex-grow: 1;
 }
 
 @media screen and (max-width:1393px) {
@@ -162,10 +162,11 @@ nav > div:nth-child(2) > a:hover {
     }
     .content2-img {
         flex-grow: 1;
-        width: calc( (100% - 10px) / 4 );
+        width: 20rem;
         height: calc( (40rem - 10px) / 2 );
     }
 }
+/* 
 @media screen and (max-width:1115px) {
     .content2-container{
         flex-direction: column;
@@ -186,7 +187,7 @@ nav > div:nth-child(2) > a:hover {
         width: calc( (100% - 10px) / 2 );
         height: calc( (40rem - 10px) / 2 );
     }
-}
+} */
 
 /* content3 */
 .content3-container {
