@@ -298,6 +298,7 @@ footer > div {
   z-index: 2; /*목차바 보다 위에 있도록 설정*/
 }
 
-.top>a {
+.top > #top-btn {
+  opacity: 0;
   color: #004e89;
 }
