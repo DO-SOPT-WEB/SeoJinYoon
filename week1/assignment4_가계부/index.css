@@ -10,7 +10,7 @@ body {
 }
 
 /* header */
-header {
+header.title {
   background-color: paleturquoise;
   display: flex;
   justify-content: center;
@@ -40,12 +40,13 @@ header > h1 {
   align-items: center;
   background-color: paleturquoise;
 }
-.total > div:first-child {
+.total > h2 {
   padding-top: 0.5rem;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  font-weight: 500;
 }
-.total > div:nth-child(2) {
+.total > p {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
@@ -87,7 +88,7 @@ header > h1 {
   cursor: pointer;
   margin: 0px 0.313rem;
 }
-.menu {
+header.menu {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -95,7 +96,7 @@ header > h1 {
   padding: 0 0.3rem;
   border-bottom: 1px solid gray;
 }
-.menu > div {
+header.menu > div {
   font-size: 1rem;
 }
 .outcome-btn {
@@ -143,7 +144,7 @@ input[id='cb2']:checked + label {
 }
 
 /* article */
-.inout-list > article {
+.inout-list > li {
   width: 100%;
   margin-bottom: 0.625rem;
   border-radius: 0.313rem;
@@ -160,7 +161,7 @@ input[id='cb2']:checked + label {
   cursor: pointer;
   font-size: 15px;
 }
-article > ul {
+li > div.detail {
   width: 95%;
   display: flex;
   flex-direction: row;
