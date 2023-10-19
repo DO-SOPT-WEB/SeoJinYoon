@@ -116,6 +116,14 @@ nav > div:nth-child(2) > a:hover {
   width: 15rem;
   object-fit: cover;
   flex-grow: 1;
+
+  /* 이미지 호버 안 했을 때 기본*/
+  filter: brightness(1);
+  transition: 0.5s;
+}
+/* 이미지 호버시 어둡게 */
+.content1-img:hover{
+  filter: brightness(0.5);
 }
 /* content2 */
 .content2-container {
