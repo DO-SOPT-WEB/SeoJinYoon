@@ -60,6 +60,7 @@ function displayBalance(items) {
   let income_amount = 0;
   let outcome_amount = 0;
 
+  // 단위 구분 쉼표 제거 후 연산
   items.forEach((item) => {
     if (item.inOrOut === 'out') {
       totalBalance -= Number(item.amount.replace(/,/g, ''));
@@ -76,26 +77,29 @@ function displayBalance(items) {
   outcome_amount_Element.innerText = outcome_amount.toString().replace('-', ' ');
 }
 
+// 최초 렌더링
 document.addEventListener('DOMContentLoaded', () => {
   displayInOutListItems(HISTORY_LIST);
   displayBalance(HISTORY_LIST);
 });
 
+// input 체크 여부에 따른 렌더링
 function displayCheckedElement(item) {
   const checkedEls = document.querySelectorAll('input[name="inOrOut"]:checked');
-  console.log(checkedEls);
+
+  // 모두 체크된 경우
   if (checkedEls.length === 2) {
     displayInOutListItems(HISTORY_LIST);
     displayBalance(HISTORY_LIST);
-  } 
+  }
+  // 모두 체크되지 않은 경우
   else if (checkedEls.length === 0) {
     displayInOutListItems([]);
     displayBalance([]);
-  } 
-  else {
+  } else {
+    // 기존 HISTORY_LIST를 필터링하여 전달
     if (checkedEls[0].className === 'outcome-btn') {
       let outHistory = HISTORY_LIST.filter((item) => item.inOrOut === 'out');
-      console.log(outHistory);
       displayInOutListItems(outHistory);
       displayBalance(outHistory);
     } else {
