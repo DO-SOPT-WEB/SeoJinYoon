@@ -48,7 +48,7 @@ function createInOutList(item) {
 }
 function displayInOutListItems(item) {
   const inOutListContainer = document.getElementById('inout-list');
-  inOutListContainer.innerHTML = HISTORY_LIST.map((item) => createInOutList(item)).join('');
+  inOutListContainer.innerHTML = item.map((item) => createInOutList(item)).join('');
 }
 
 function displayBalance(items) {
@@ -80,3 +80,28 @@ document.addEventListener('DOMContentLoaded', () => {
   displayInOutListItems(HISTORY_LIST);
   displayBalance(HISTORY_LIST);
 });
+
+function displayCheckedElement(item) {
+  const checkedEls = document.querySelectorAll('input[name="inOrOut"]:checked');
+  console.log(checkedEls);
+  if (checkedEls.length === 2) {
+    displayInOutListItems(HISTORY_LIST);
+    displayBalance(HISTORY_LIST);
+  } 
+  else if (checkedEls.length === 0) {
+    displayInOutListItems([]);
+    displayBalance([]);
+  } 
+  else {
+    if (checkedEls[0].className === 'outcome-btn') {
+      let outHistory = HISTORY_LIST.filter((item) => item.inOrOut === 'out');
+      console.log(outHistory);
+      displayInOutListItems(outHistory);
+      displayBalance(outHistory);
+    } else {
+      let inHistory = HISTORY_LIST.filter((item) => item.inOrOut === 'in');
+      displayInOutListItems(inHistory);
+      displayBalance(inHistory);
+    }
+  }
+}

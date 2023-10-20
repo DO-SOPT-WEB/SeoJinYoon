@@ -43,9 +43,9 @@
         <header class="menu">
           <div>내역 리스트</div>
           <div class="inout-button">
-            <input type="checkbox" checked class="outcome-btn" id="cb1" />
+            <input type="checkbox" name="inOrOut" class="income-btn" id="cb1"  onclick="displayCheckedElement()" checked/>
             <label for="cb1"><span class="cb1-label">수입</span></label>
-            <input type="checkbox" checked class="income-btn" id="cb2" />
+            <input type="checkbox" name="inOrOut" class="outcome-btn" id="cb2" onclick="displayCheckedElement()" checked/>
             <label for="cb2"><span class="cb2-label">지출</span></label>
           </div>
         </header>
