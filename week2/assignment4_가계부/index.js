@@ -31,15 +31,18 @@ const HISTORY_LIST = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+  // main section 나의 자산
   let totalBalance = INIT_BALANCE;
+  const init_balanceElement = document.getElementById('init_balance');
 
+  // main section 총수입, 총지출
   let income_amount = 0;
   let outcome_amount = 0;
   const income_amount_Element = document.getElementById('income_amount');
   const outcome_amount_Element = document.getElementById('outcome_amount');
 
+  // 지출 내역 리스트 컨테이너
   const ulElement = document.getElementById('inout-list');
-  const init_balanceElement = document.getElementById('init_balance');
 
   HISTORY_LIST.forEach((item) => {
     const liElement = document.createElement('li');
@@ -58,17 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
     placeSpan.className = 'place';
     placeSpan.textContent = item.place;
 
+    // 가격 계산
     const amountSpan = document.createElement('span');
     if (item.inOrOut === 'out') {
       amountSpan.className = 'out-list';
       amountSpan.textContent = `-${item.amount}`;
 
+      // 나의 자산 , 총수입 업데이트
       totalBalance -= Number(item.amount.replace(/,/g, ''));
       outcome_amount -= Number(item.amount.replace(/,/g, ''));
     } else if (item.inOrOut === 'in') {
       amountSpan.className = 'in-list';
       amountSpan.textContent = `+${item.amount}`;
 
+      // 나의 자산, 총지출 업데이트
       totalBalance += Number(item.amount.replace(/,/g, ''));
       income_amount += Number(item.amount.replace(/,/g, ''));
     }
@@ -81,8 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ulElement.appendChild(liElement);
   });
-  init_balanceElement.innerText = totalBalance;
 
+  // 나의 자산, 총수입, 총지출 렌더링
+  init_balanceElement.innerText = totalBalance;
   income_amount_Element.innerText = income_amount;
-  outcome_amount_Element.innerText = outcome_amount.toString().replace("-", " ");
+  outcome_amount_Element.innerText = outcome_amount.toString().replace('-', ' ');
 });
