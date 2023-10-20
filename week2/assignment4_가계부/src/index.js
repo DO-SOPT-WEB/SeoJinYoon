@@ -95,17 +95,14 @@ function displayCheckedElement(item) {
   // 모두 체크되지 않은 경우
   else if (checkedEls.length === 0) {
     displayInOutListItems([]);
-    displayBalance([]);
   } else {
     // 기존 HISTORY_LIST를 필터링하여 전달
     if (checkedEls[0].className === 'outcome-btn') {
       let outHistory = HISTORY_LIST.filter((item) => item.inOrOut === 'out');
       displayInOutListItems(outHistory);
-      displayBalance(outHistory);
     } else {
       let inHistory = HISTORY_LIST.filter((item) => item.inOrOut === 'in');
       displayInOutListItems(inHistory);
-      displayBalance(inHistory);
     }
   }
 }
