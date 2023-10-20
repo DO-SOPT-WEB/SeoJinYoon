@@ -30,9 +30,10 @@ const HISTORY_LIST = [
   }
 ];
 
-
+let totalBalance = INIT_BALANCE;
 document.addEventListener('DOMContentLoaded', () => {
 const ulElement = document.getElementById('inout-list');
+const init_balanceElement = document.getElementById('init_balance');
 
 HISTORY_LIST.forEach(item => {
   const liElement = document.createElement('li');
@@ -55,9 +56,13 @@ HISTORY_LIST.forEach(item => {
   if (item.inOrOut === 'out') {
     amountSpan.className = 'out-list';
     amountSpan.textContent = `-${item.amount}`;
+    
+    totalBalance -= Number(item.amount.replace(/,/g,""));
   } else if (item.inOrOut === 'in') {
     amountSpan.className = 'in-list';
     amountSpan.textContent = `+${item.amount}`;
+    
+    totalBalance += Number(item.amount.replace(/,/g,""));
   }
 
   detailDiv.appendChild(contentSpan);
@@ -67,5 +72,8 @@ HISTORY_LIST.forEach(item => {
   liElement.appendChild(detailDiv);
 
   ulElement.appendChild(liElement);
+
+  init_balanceElement.innerText = totalBalance;
 });
 })
+
