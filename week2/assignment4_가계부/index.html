@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <div class="black_bg"></div>
+    <div class="black_bg" id="black_bg"></div>
     <header class="title">
       <h1>서진 가계부 🧾</h1>
     </header>
@@ -44,28 +44,52 @@
         <header class="menu">
           <div>내역 리스트</div>
           <div class="inout-button">
-            <input type="checkbox" name="inOrOut" class="income-btn" id="cb1"  onclick="displayCheckedElement()" checked/>
+            <input
+              type="checkbox"
+              name="inOrOut"
+              class="income-btn"
+              id="cb1"
+              onclick="displayCheckedElement()"
+              checked
+            />
             <label for="cb1"><span class="cb1-label">수입</span></label>
-            <input type="checkbox" name="inOrOut" class="outcome-btn" id="cb2" onclick="displayCheckedElement()" checked/>
+            <input
+              type="checkbox"
+              name="inOrOut"
+              class="outcome-btn"
+              id="cb2"
+              onclick="displayCheckedElement()"
+              checked
+            />
             <label for="cb2"><span class="cb2-label">지출</span></label>
           </div>
         </header>
 
         <!-- 수입/지출 리스트 -->
-        <ul class="inout-list" id="inout-list">
-        </ul>
+        <ul class="inout-list" id="inout-list"></ul>
       </section>
     </main>
 
     <footer>
-      <button class="add-btn"><div>+</div></button>
+      <button class="add-btn" id="add-btn" onclick="onClickModalOpen()"><div>+</div></button>
 
-      <div class="modal_wrap">
+      <div class="modal" id="modal">
+        <div class="modal_wrap" id="modal_wrap">
           <p>내역 추가</p>
-          <form  class="list_add">
+          <form class="list_add">
             <div id="modal_inout_btn_container">
-              <button type="button" id="modal_in_btn" name="in" class="modal_btn active" onClick="onClickModalTypeBtn()">수입</button>
-              <button type="button" id="modal_out_btn" name="out" class="modal_btn" onClick="onClickModalTypeBtn()">지출</button>
+              <button
+                type="button"
+                id="modal_in_btn"
+                name="in"
+                class="modal_btn active"
+                onClick="onClickModalTypeBtn()"
+              >
+                수입
+              </button>
+              <button type="button" id="modal_out_btn" name="out" class="modal_btn" onClick="onClickModalTypeBtn()">
+                지출
+              </button>
             </div>
 
             <section class="list_content_type">
@@ -78,22 +102,19 @@
 
             <section class="list_amount">
               <label for="list_amount">금액</label>
-              <input type="text" id="list_amount"/>
+              <input type="text" id="list_amount" />
             </section>
 
             <section class="list_place">
               <label for="list_place">내용</label>
-              <input type="text" id="list_place"/>
+              <input type="text" id="list_place" />
             </section>
 
             <button class="modal_save_btn" type="submit" onClick="onClickModalSaveBtn()">저장</button>
-            <button class="modal_close_btn">닫기</button>
+            <button type="button" class="modal_close_btn" onclick="onClickModalClose()">닫기</button>
           </form>
-        </section>
-
-
+        </div>
       </div>
     </footer>
-
   </body>
 </html>

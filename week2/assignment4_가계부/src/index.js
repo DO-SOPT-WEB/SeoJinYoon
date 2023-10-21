@@ -189,6 +189,15 @@ function onClickModalTypeBtn() {
   }
 }
 
+// ---------------------
+// 모달창 띄우기
+function onClickModalOpen() {
+  const ModalOpenBtn = document.getElementById('modal');
+  const blackBg = document.getElementById('black_bg')
+  ModalOpenBtn.style.display = 'block';
+  blackBg.style.display = 'block';
+}
+
 // 모달값 저장 및 기존값들 업데이트
 function onClickModalSaveBtn() {
   event.preventDefault();
@@ -240,4 +249,13 @@ function onClickModalSaveBtn() {
   inOutListContainer.innerHTML += modalSavedListItem;
 
   alert('저장되었습니다.');
+}
+
+// 모달창 닫기
+function onClickModalClose() {
+  const ModalOpenBtn = document.getElementById('modal');
+  const blackBg = document.getElementById('black_bg')
+  ModalOpenBtn.style.display = 'none';
+  blackBg.style.display = 'none';
+  event.preventDefault;
 }
