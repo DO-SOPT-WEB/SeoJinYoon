@@ -149,10 +149,16 @@ function deleteHandler(e) {
   toDeleteElement.remove();
 }
 
-function change_btn() {
-  let btns = document.getElementsByClassName('modal_btn');
+// select 박스 option HTML 
+function type_option(item) {
+  return `<option value${item}>${item}</option>`
+}
 
-  [...btns].forEach((btn, i) => {
+// 수입,지출 버튼 handler
+function onClickModalTypeBtn() {
+  // 버튼 클릭시 색상 변경
+  const modalTypeBtns = document.getElementsByClassName('modal_btn');
+  [...modalTypeBtns].forEach((btn, i) => {
     if (event.currentTarget == btn) {
       btn.classList.add("active");
     } else {
@@ -160,4 +166,26 @@ function change_btn() {
     }
   });
 
+  // 버튼에 따른 카테고리 option 변경 위한 배열
+  const content_type_container = document.getElementById('content_type');
+  let in_content_type = [];
+  let out_content_type = [];
+  
+  HISTORY_LIST.forEach(item => {
+    if (item.inOrOut === 'in') {
+      in_content_type.push(item.content);
+    }
+    else {
+      out_content_type.push(item.content);
+    }
+  })
+
+  // 눌린 버튼에 따른 option 생성
+  if(event.currentTarget.innerText == "수입") {
+    content_type_container.innerHTML = in_content_type.map(item => type_option(item)).join('');
+  }
+  else {
+    content_type_container.innerHTML = out_content_type.map(item => type_option(item)).join('');
+  }
+  
 }

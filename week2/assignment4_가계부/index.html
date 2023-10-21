@@ -64,15 +64,15 @@
           <p>내역 추가</p>
           <form  class="list_add">
             <div id="modal_inout_btn_container">
-              <button type="button" id="modal_in_btn" class="modal_btn" onClick="change_btn()">수입</button>
-              <button type="button" id="modal_out_btn" class="modal_btn" onClick="change_btn()">지출</button>
+              <button type="button" id="modal_in_btn" class="modal_btn active" onClick="onClickModalTypeBtn()">수입</button>
+              <button type="button" id="modal_out_btn" class="modal_btn" onClick="onClickModalTypeBtn()">지출</button>
             </div>
 
             <section class="list_content_type">
               <label for="content_type">종류</label>
-              <select name="content_type" for="content_type">
-                <option value="test1">test1</option>
-                <option value="test2">test2</option>
+              <select name="content_type" for="content_type" id="content_type">
+                <option value="수입">수입</option>
+                <option value="용돈">용돈</option>
               </select>
             </section>
 
