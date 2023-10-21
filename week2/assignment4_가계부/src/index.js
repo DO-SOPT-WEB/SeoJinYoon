@@ -148,3 +148,4 @@ function deleteHandler(e) {
   // DOM에서 element 지우기 (li 목록에서)
   toDeleteElement.remove();
 }
+

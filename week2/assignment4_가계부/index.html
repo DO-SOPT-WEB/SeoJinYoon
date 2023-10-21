@@ -11,6 +11,7 @@
   </head>
 
   <body>
+    <div class="black_bg"></div>
     <header class="title">
       <h1>서진 가계부 🧾</h1>
     </header>
@@ -50,6 +51,7 @@
           </div>
         </header>
 
+        <!-- 수입/지출 리스트 -->
         <ul class="inout-list" id="inout-list">
         </ul>
       </section>
@@ -57,6 +59,35 @@
 
     <footer>
       <button class="add-btn"><div>+</div></button>
+
+      <div class="modal_wrap">
+          <p>내역 추가</p>
+          <form  class="list_add">
+            <div id="modal_inout_btn_container">
+              <button type="button" id="modal_in_btn" class="modal_btn">수입</button>
+              <button type="button" id="modal_out_btn" class="modal_btn">지출</button>
+            </div>
+
+            <section class="list_content_type">
+              <label for="content_type">종류</label>
+              <select name="content_type" for="content_type">
+                <option value="test1">test1</option>
+                <option value="test2">test2</option>
+              </select>
+            </section>
+
+            <section class="list_place">
+              <label for="list_place">내용</label>
+              <input type="text" id="list_place"/>
+            </section>
+
+            <button class="modal_save_btn" type="submit">저장</button>
+            <button class="modal_close_btn">닫기</button>
+          </form>
+        </section>
+
+
+      </div>
     </footer>
 
   </body>
