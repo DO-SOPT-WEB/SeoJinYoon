@@ -258,11 +258,14 @@ form {
 }
 
 .modal_btn {
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 2rem;
+  background-color: azure;
+  border-radius: 0.5rem;
 }
 
-.modal_btn:active, .modal_btn:visited {
-  background-color: red;
+/* 버튼 클릭시 지정되는 태그 */
+.modal_btn.active {
+  background-color: burlywood;
 }
 
 .list_content_type, .list_place {

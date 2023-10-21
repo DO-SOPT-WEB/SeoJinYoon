@@ -149,3 +149,15 @@ function deleteHandler(e) {
   toDeleteElement.remove();
 }
 
+function change_btn() {
+  let btns = document.getElementsByClassName('modal_btn');
+
+  [...btns].forEach((btn, i) => {
+    if (event.currentTarget == btn) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+}
