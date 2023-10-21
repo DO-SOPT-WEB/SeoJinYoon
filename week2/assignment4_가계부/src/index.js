@@ -33,22 +33,22 @@ const HISTORY_LIST = [
 function createInOutList(item) {
   return `
     <li>
-      <button class="close">x</button>
+      <button class="close" id=${item.id} onClick="deleteHandler(this)">x</button>
       <div class="detail">
         <span class="content">${item.content}</span>
         <span class="place">${item.place}</span>
         ${
           item.inOrOut === 'in'
-            ? `<span class="in-list">+${item.amount}</span>`
-            : `<span class="out-list">-${item.amount}</span>`
+            ? `<span class="in-list" id="in-list">+${item.amount}</span>`
+            : `<span class="out-list" id="out-list">-${item.amount}</span>`
         }
       </div>
     </li>
   `;
 }
-function displayInOutListItems(item) {
+function displayInOutListItems(items) {
   const inOutListContainer = document.getElementById('inout-list');
-  inOutListContainer.innerHTML = item.map((item) => createInOutList(item)).join('');
+  inOutListContainer.innerHTML = items.map((item) => createInOutList(item)).join('');
 }
 
 function displayBalance(items) {
@@ -105,4 +105,46 @@ function displayCheckedElement(item) {
       displayInOutListItems(inHistory);
     }
   }
+}
+
+// 삭제버튼
+function deleteHandler(e) {
+  // DOM에서 지우기 위한 element
+  const toDeleteElement = event.target.parentElement;
+
+  // 수입/지출 버튼 눌렀을 시에 반영하기 위해 객체 자체에서 해당 값 찾아두기
+  const HISTORY_LIST_id = document.getElementById(e.getAttribute('id')).getAttribute('id');
+  let deleteTarget = '';
+  HISTORY_LIST.forEach((item) => {
+    if (item.id == HISTORY_LIST_id) {
+      deleteTarget = item;
+    }
+  });
+
+  // 삭제 버튼에 따른 값 업데이트 위함
+  const total = document.getElementById('init_balance');
+  let totalAmount = Number(total.innerText);
+  const income = document.getElementById('income_amount');
+  const outcome = document.getElementById('outcome_amount');
+
+  if (deleteTarget.inOrOut === 'out') {
+    outcome.innerText -= Number(deleteTarget.amount.replace(/,/g, ''));
+    totalAmount += Number(deleteTarget.amount.replace(/,/g, ''));
+    total.innerText = totalAmount;
+  } else {
+    income.innerText -= Number(deleteTarget.amount.replace(/,/g, ''));
+    totalAmount -= Number(deleteTarget.amount.replace(/,/g, ''));
+    total.innerText = totalAmount;
+  }
+
+  // 객체 자체에서 해당 값 지우기
+  for (let i = 0; i < HISTORY_LIST.length; i++) {
+    if (HISTORY_LIST[i].id === deleteTarget.id) {
+      HISTORY_LIST.splice(i, 1);
+      break;
+    }
+  }
+
+  // DOM에서 element 지우기 (li 목록에서)
+  toDeleteElement.remove();
 }
