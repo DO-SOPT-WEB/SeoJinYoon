@@ -122,6 +122,7 @@ function deleteHandler(e) {
   });
 
   // 삭제 버튼에 따른 값 업데이트 위함
+  // ----------------- 동일 부분 함수로 묶기 ----------------- //
   const total = document.getElementById('init_balance');
   let totalAmount = Number(total.innerText);
   const income = document.getElementById('income_amount');
@@ -136,6 +137,7 @@ function deleteHandler(e) {
     totalAmount -= Number(deleteTarget.amount.replace(/,/g, ''));
     total.innerText = totalAmount;
   }
+  // ----------------- 동일 부분 함수로 묶기 ----------------- //
 
   // 객체 자체에서 해당 값 지우기
   for (let i = 0; i < HISTORY_LIST.length; i++) {
@@ -149,9 +151,9 @@ function deleteHandler(e) {
   toDeleteElement.remove();
 }
 
-// select 박스 option HTML 
+// select 박스 option HTML
 function type_option(item) {
-  return `<option value${item}>${item}</option>`
+  return `<option value${item}>${item}</option>`;
 }
 
 // 수입,지출 버튼 handler
@@ -160,9 +162,9 @@ function onClickModalTypeBtn() {
   const modalTypeBtns = document.getElementsByClassName('modal_btn');
   [...modalTypeBtns].forEach((btn, i) => {
     if (event.currentTarget == btn) {
-      btn.classList.add("active");
+      btn.classList.add('active');
     } else {
-      btn.classList.remove("active");
+      btn.classList.remove('active');
     }
   });
 
@@ -170,22 +172,72 @@ function onClickModalTypeBtn() {
   const content_type_container = document.getElementById('content_type');
   let in_content_type = [];
   let out_content_type = [];
-  
-  HISTORY_LIST.forEach(item => {
+
+  HISTORY_LIST.forEach((item) => {
     if (item.inOrOut === 'in') {
       in_content_type.push(item.content);
-    }
-    else {
+    } else {
       out_content_type.push(item.content);
     }
-  })
+  });
 
   // 눌린 버튼에 따른 option 생성
-  if(event.currentTarget.innerText == "수입") {
-    content_type_container.innerHTML = in_content_type.map(item => type_option(item)).join('');
+  if (event.currentTarget.innerText == '수입') {
+    content_type_container.innerHTML = in_content_type.map((item) => type_option(item)).join('');
+  } else {
+    content_type_container.innerHTML = out_content_type.map((item) => type_option(item)).join('');
   }
-  else {
-    content_type_container.innerHTML = out_content_type.map(item => type_option(item)).join('');
+}
+
+// 모달값 저장 및 기존값들 업데이트
+function onClickModalSaveBtn() {
+  event.preventDefault();
+  const content_type_container = document.getElementById('content_type');
+  const modal_list_inOrOut = document.getElementsByClassName('active');
+  const modal_list_place = document.getElementById('list_place');
+  const modal_list_amount = document.getElementById('list_amount');
+
+  let content = content_type_container.options[content_type_container.selectedIndex].value;
+  let place = modal_list_place.value;
+  let inOrOut = modal_list_inOrOut[0].name;
+  let amount = modal_list_amount.value;
+
+  let listItem = [
+    {
+      id: HISTORY_LIST.length + 1,
+      content,
+      place,
+      inOrOut,
+      amount,
+    },
+  ];
+
+  // 값 업데이트
+  // ----------------- 동일 부분 함수로 묶기 ----------------- //
+  const total = document.getElementById('init_balance');
+  let totalAmount = Number(total.innerText);
+  const income = document.getElementById('income_amount');
+  let incomeAmount = Number(income.innerText);
+  const outcome = document.getElementById('outcome_amount');
+  let outcomeAmount = Number(outcome.innerText);
+
+  if (inOrOut === 'out') {
+    outcomeAmount += Number(amount.replace(/,/g, ''));
+    outcome.innerText = outcomeAmount;
+    totalAmount -= Number(amount.replace(/,/g, ''));
+    total.innerText = totalAmount;
+  } else {
+    incomeAmount += Number(amount.replace(/,/g, ''));
+    income.innerText = incomeAmount;
+    totalAmount += Number(amount.replace(/,/g, ''));
+    total.innerText = totalAmount;
   }
-  
+  // ----------------- 동일 부분 함수로 묶기 ----------------- //
+
+  // list 추가하기
+  let modalSavedListItem = createInOutList(listItem[0]);
+  const inOutListContainer = document.getElementById('inout-list');
+  inOutListContainer.innerHTML += modalSavedListItem;
+
+  alert('저장되었습니다.');
 }

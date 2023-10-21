@@ -268,7 +268,7 @@ form {
   background-color: burlywood;
 }
 
-.list_content_type, .list_place {
+.list_content_type, .list_place, .list_amount {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -280,7 +280,8 @@ form {
   height: 2rem;
 }
 
-.list_place > input {
+.list_place > input,
+.list_amount > input {
   width: 20rem;
   height: 2rem;
 }

@@ -64,8 +64,8 @@
           <p>내역 추가</p>
           <form  class="list_add">
             <div id="modal_inout_btn_container">
-              <button type="button" id="modal_in_btn" class="modal_btn active" onClick="onClickModalTypeBtn()">수입</button>
-              <button type="button" id="modal_out_btn" class="modal_btn" onClick="onClickModalTypeBtn()">지출</button>
+              <button type="button" id="modal_in_btn" name="in" class="modal_btn active" onClick="onClickModalTypeBtn()">수입</button>
+              <button type="button" id="modal_out_btn" name="out" class="modal_btn" onClick="onClickModalTypeBtn()">지출</button>
             </div>
 
             <section class="list_content_type">
@@ -76,12 +76,17 @@
               </select>
             </section>
 
+            <section class="list_amount">
+              <label for="list_amount">금액</label>
+              <input type="text" id="list_amount"/>
+            </section>
+
             <section class="list_place">
               <label for="list_place">내용</label>
               <input type="text" id="list_place"/>
             </section>
 
-            <button class="modal_save_btn" type="submit">저장</button>
+            <button class="modal_save_btn" type="submit" onClick="onClickModalSaveBtn()">저장</button>
             <button class="modal_close_btn">닫기</button>
           </form>
         </section>
