@@ -20,8 +20,16 @@ const captions = document.getElementsByClassName('caption');
 const moreBtns = document.getElementsByClassName('caption_detail_more_btn');
 
 for (let i = 0; i<imgContainers.length; i++) {
-    if (66 < captionDetails[i].scrollHeight) {
+    if (64 < captionDetails[i].scrollHeight) {
         moreBtns[i].style.display = 'inline-block';
+
+        imgContainers[i].addEventListener('mouseleave', () =>{
+            // 더보기 버튼 다시 생기도록, 부드럽게 생기기 
+            setTimeout(() => {
+                captionDetails[i].style.webkitLineClamp = 3;
+                moreBtns[i].style.display = 'inline-block'; 
+            }, 300);
+        });
     }
 
     moreBtns[i].addEventListener('click', () => {
@@ -29,14 +37,13 @@ for (let i = 0; i<imgContainers.length; i++) {
         captionDetails[i].style.webkitLineClamp = 'unset';
     });
     
-    imgContainers[i].addEventListener('mouseleave', () =>{
-        // 더보기 버튼 다시 생기도록, 부드럽게 생기기 
-        setTimeout(() => {
-            captionDetails[i].style.webkitLineClamp = 3;
-            moreBtns[i].style.display = 'inline-block'; 
-        }, 300);
-    });
+
 }
+
+
+
+
+
 
 // Preview 좌우 스크롤
 const previewLeft = document.getElementById('preview_left_btn');
