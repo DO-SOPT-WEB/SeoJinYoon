@@ -36,13 +36,7 @@ for (let i = 0; i<imgContainers.length; i++) {
         moreBtns[i].style.display = 'none';
         captionDetails[i].style.webkitLineClamp = 'unset';
     });
-    
-
 }
-
-
-
-
 
 
 // Preview 좌우 스크롤
