@@ -1,4 +1,4 @@
-// 스크롤 
+// top 버튼 스크롤에 따른 색 변경
 const topBtn = document.getElementById('top-btn');
 const topSection = document.getElementById('topHeader');
 const bottomSection = document.getElementById('content3');
@@ -13,7 +13,7 @@ document.addEventListener('scroll', () => {
     topBtn.style.opacity = (topSectionY - scrollY) / heightDiff;
 })
 
-// 더보기 
+// section 1 설명 더보기 
 const imgContainers = document.getElementsByClassName('img_hover_container');
 const captionDetails = document.getElementsByClassName('caption_detail');
 const captions = document.getElementsByClassName('caption');
@@ -37,3 +37,23 @@ for (let i = 0; i<imgContainers.length; i++) {
         }, 300);
     });
 }
+
+// Preview 좌우 스크롤
+const previewLeft = document.getElementById('preview_left_btn');
+const previewRight = document.getElementById('preview_right_btn');
+const previewList = document.getElementById('preview_list');
+
+previewRight.addEventListener('click', () => {
+    let lastImgLocation = previewList.scrollWidth;
+    previewList.scroll({
+        left: lastImgLocation,
+        behavior: "smooth"
+    });
+})
+
+previewLeft.addEventListener('click', () => {
+    previewList.scroll({
+        left: 0,
+        behavior: "smooth"
+    });
+})

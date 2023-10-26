@@ -36,11 +36,27 @@ header > div {
 /* preview */
 .preview {
   background-color: #f9f7f3;
+  position: relative;
 }
+/* ---좌우 이동--- */
+.preview > i {
+  position: absolute;
+  top: 12rem;
+  z-index: 1;
+  cursor: pointer;
+}
+.preview > i:nth-child(1) {
+  left: 1rem;
+}
+.preview > i:last-child {
+  right: 1rem;
+}
+/* ---좌우 이동--- */
+
 .preview-list {
   display: flex;
   gap: 10px;
-  padding: 2rem;
+  padding: 2.5rem;
   overflow-x: scroll;
 }
 .preview-image {
