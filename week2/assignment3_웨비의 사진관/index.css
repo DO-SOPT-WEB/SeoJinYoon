@@ -162,10 +162,11 @@ nav > div:nth-child(2) > a:hover {
 
 .caption > .caption_detail_more_btn {
   display: none;
-  border: 1px solid black;
-  background-color: green;
+  border: 1px solid aliceblue;
+  background-color: #cae9ff;
+  color: #023047;
   padding: 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: 2rem;
   cursor: pointer;
   margin: 1rem;
 }
