@@ -30,7 +30,7 @@ const HISTORY_LIST = [
   },
 ];
 
-// 초기 렌더링 시 HISTORY_LIST 값에 따른 li html 
+// 초기 렌더링 시 HISTORY_LIST 값에 따른 li html
 function createInOutList(item) {
   return `
     <li>
@@ -131,7 +131,7 @@ function deleteHandler(e) {
   const total = document.getElementById('init_balance');
   const income = document.getElementById('income_amount');
   const outcome = document.getElementById('outcome_amount');
-  amountUpdate(total, income, outcome, deleteTarget.amount, deleteTarget.inOrOut, "delete");
+  amountUpdate(total, income, outcome, deleteTarget.amount, deleteTarget.inOrOut, 'delete');
 
   // 객체 자체에서 해당 값 지우기
   for (let i = 0; i < HISTORY_LIST.length; i++) {
@@ -216,16 +216,9 @@ function onClickModalSaveBtn() {
     },
   ];
 
-  // 값 업데이트
-  const total = document.getElementById('init_balance');
-  const income = document.getElementById('income_amount');
-  const outcome = document.getElementById('outcome_amount');
-  amountUpdate(total, income, outcome, amount, inOrOut, "modal");
-
-  // list 추가하기
-  let modalSavedListItem = createInOutList(listItem[0]);
-  const inOutListContainer = document.getElementById('inout-list');
-  inOutListContainer.innerHTML += modalSavedListItem;
+  HISTORY_LIST.push(listItem[0]);
+  displayInOutListItems(HISTORY_LIST);
+  displayBalance(HISTORY_LIST);
 
   alert('저장되었습니다.');
 }
@@ -239,7 +232,6 @@ function onClickModalClose() {
   event.preventDefault;
 }
 
-
 // ---------------------------------------------------------------
 // 나의자산, 총수입, 총지출 업데이트 함수
 function amountUpdate(total, income, outcome, newAmount, inOrOut, target) {
@@ -249,19 +241,6 @@ function amountUpdate(total, income, outcome, newAmount, inOrOut, target) {
   let updateAmount = Number(newAmount.replace(/,/g, ''));
 
   switch (target) {
-    case 'modal':
-      if (inOrOut === 'out') {
-        outcomeAmount += updateAmount;
-        outcome.innerText = outcomeAmount;
-        totalAmount -= updateAmount;
-        total.innerText -= totalAmount;
-      } else {
-        incomeAmount += updateAmount;
-        income.innerText = incomeAmount;
-        totalAmount += updateAmount;
-        total.innerText = totalAmount;
-      }
-      break;
     case 'delete':
       if (inOrOut === 'out') {
         outcomeAmount -= updateAmount;
