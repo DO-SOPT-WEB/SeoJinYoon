@@ -62,12 +62,13 @@ function displayBalance(items) {
 
   // 단위 구분 쉼표 제거 후 연산
   items.forEach((item) => {
+    let itemAmount = Number(item.amount.replace(/,/g, ''));
     if (item.inOrOut === 'out') {
-      totalBalance -= Number(item.amount.replace(/,/g, ''));
-      outcome_amount -= Number(item.amount.replace(/,/g, ''));
+      totalBalance -= itemAmount;
+      outcome_amount -= itemAmount;
     } else {
-      totalBalance += Number(item.amount.replace(/,/g, ''));
-      income_amount += Number(item.amount.replace(/,/g, ''));
+      totalBalance += itemAmount;
+      income_amount += itemAmount;
     }
   });
 
@@ -109,7 +110,7 @@ function displayCheckedElement(item) {
 
 // 삭제버튼
 function deleteHandler(e) {
-  // DOM에서 지우기 위한 element
+  // DOM에서 지우기 위한 li element
   const toDeleteElement = event.target.parentElement;
 
   // 수입/지출 버튼 눌렀을 시에 반영하기 위해 객체 자체에서 해당 값 찾아두기
@@ -122,22 +123,10 @@ function deleteHandler(e) {
   });
 
   // 삭제 버튼에 따른 값 업데이트 위함
-  // ----------------- 동일 부분 함수로 묶기 ----------------- //
   const total = document.getElementById('init_balance');
-  let totalAmount = Number(total.innerText);
   const income = document.getElementById('income_amount');
   const outcome = document.getElementById('outcome_amount');
-
-  if (deleteTarget.inOrOut === 'out') {
-    outcome.innerText -= Number(deleteTarget.amount.replace(/,/g, ''));
-    totalAmount += Number(deleteTarget.amount.replace(/,/g, ''));
-    total.innerText = totalAmount;
-  } else {
-    income.innerText -= Number(deleteTarget.amount.replace(/,/g, ''));
-    totalAmount -= Number(deleteTarget.amount.replace(/,/g, ''));
-    total.innerText = totalAmount;
-  }
-  // ----------------- 동일 부분 함수로 묶기 ----------------- //
+  amountUpdate(total, income, outcome, deleteTarget.amount, deleteTarget.inOrOut, "delete");
 
   // 객체 자체에서 해당 값 지우기
   for (let i = 0; i < HISTORY_LIST.length; i++) {
@@ -193,7 +182,7 @@ function onClickModalTypeBtn() {
 // 모달창 띄우기
 function onClickModalOpen() {
   const ModalOpenBtn = document.getElementById('modal');
-  const blackBg = document.getElementById('black_bg')
+  const blackBg = document.getElementById('black_bg');
   ModalOpenBtn.style.display = 'block';
   blackBg.style.display = 'block';
 }
@@ -202,7 +191,7 @@ function onClickModalOpen() {
 function onClickModalSaveBtn() {
   event.preventDefault();
   const content_type_container = document.getElementById('content_type');
-  const modal_list_inOrOut = document.getElementsByClassName('active');
+  const modal_list_inOrOut = document.getElementsByClassName('active'); // 수입, 지출 중 눌린 값 가져오기
   const modal_list_place = document.getElementById('list_place');
   const modal_list_amount = document.getElementById('list_amount');
 
@@ -222,26 +211,10 @@ function onClickModalSaveBtn() {
   ];
 
   // 값 업데이트
-  // ----------------- 동일 부분 함수로 묶기 ----------------- //
   const total = document.getElementById('init_balance');
-  let totalAmount = Number(total.innerText);
   const income = document.getElementById('income_amount');
-  let incomeAmount = Number(income.innerText);
   const outcome = document.getElementById('outcome_amount');
-  let outcomeAmount = Number(outcome.innerText);
-
-  if (inOrOut === 'out') {
-    outcomeAmount += Number(amount.replace(/,/g, ''));
-    outcome.innerText = outcomeAmount;
-    totalAmount -= Number(amount.replace(/,/g, ''));
-    total.innerText = totalAmount;
-  } else {
-    incomeAmount += Number(amount.replace(/,/g, ''));
-    income.innerText = incomeAmount;
-    totalAmount += Number(amount.replace(/,/g, ''));
-    total.innerText = totalAmount;
-  }
-  // ----------------- 동일 부분 함수로 묶기 ----------------- //
+  amountUpdate(total, income, outcome, amount, inOrOut, "modal");
 
   // list 추가하기
   let modalSavedListItem = createInOutList(listItem[0]);
@@ -254,8 +227,45 @@ function onClickModalSaveBtn() {
 // 모달창 닫기
 function onClickModalClose() {
   const ModalOpenBtn = document.getElementById('modal');
-  const blackBg = document.getElementById('black_bg')
+  const blackBg = document.getElementById('black_bg');
   ModalOpenBtn.style.display = 'none';
   blackBg.style.display = 'none';
   event.preventDefault;
+}
+
+// 버튼에 따른 값 업데이트
+function amountUpdate(total, income, outcome, newAmount, inOrOut, target) {
+  let totalAmount = Number(total.innerText);
+  let incomeAmount = Number(income.innerText);
+  let outcomeAmount = Number(outcome.innerText);
+  let updateAmount = Number(newAmount.replace(/,/g, ''));
+
+  switch (target) {
+    case 'modal':
+      if (inOrOut === 'out') {
+        outcomeAmount += updateAmount;
+        outcome.innerText = outcomeAmount;
+        totalAmount -= updateAmount;
+        total.innerText -= totalAmount;
+      } else {
+        incomeAmount += updateAmount;
+        income.innerText = incomeAmount;
+        totalAmount += updateAmount;
+        total.innerText = totalAmount;
+      }
+      break;
+    case 'delete':
+      if (inOrOut === 'out') {
+        outcomeAmount -= updateAmount;
+        outcome.innerText = outcomeAmount;
+        totalAmount += updateAmount;
+        total.innerText -= totalAmount;
+      } else {
+        incomeAmount -= updateAmount;
+        income.innerText = incomeAmount;
+        totalAmount -= updateAmount;
+        total.innerText = totalAmount;
+      }
+      break;
+  }
 }
