@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ---------------------------------------------------------------
-
 // input 체크 여부에 따른 렌더링
 function displayCheckedElement(item) {
   const checkedEls = document.querySelectorAll('input[name="inOrOut"]:checked');
@@ -115,34 +114,19 @@ function displayCheckedElement(item) {
 // ---------------------------------------------------------------
 // 삭제버튼
 function deleteHandler(e) {
-  // DOM에서 지우기 위한 li element
-  const toDeleteElement = event.target.parentElement;
-
-  // 수입/지출 버튼 눌렀을 시에 반영하기 위해 객체 자체에서 해당 값 찾아두기
+  // 지우려는 값 객체에서 찾기
   const HISTORY_LIST_id = document.getElementById(e.getAttribute('id')).getAttribute('id');
-  let deleteTarget = '';
-  HISTORY_LIST.forEach((item) => {
+  let deleteTargetIdx;
+  HISTORY_LIST.forEach((item, idx) => {
     if (item.id == HISTORY_LIST_id) {
-      deleteTarget = item;
+      deleteTargetIdx = idx;
     }
   });
-
-  // 삭제 버튼에 따른 값 업데이트 위함
-  const total = document.getElementById('init_balance');
-  const income = document.getElementById('income_amount');
-  const outcome = document.getElementById('outcome_amount');
-  amountUpdate(total, income, outcome, deleteTarget.amount, deleteTarget.inOrOut, 'delete');
-
-  // 객체 자체에서 해당 값 지우기
-  for (let i = 0; i < HISTORY_LIST.length; i++) {
-    if (HISTORY_LIST[i].id === deleteTarget.id) {
-      HISTORY_LIST.splice(i, 1);
-      break;
-    }
-  }
-
-  // DOM에서 element 지우기 (li 목록에서)
-  toDeleteElement.remove();
+  // 객체에서 삭제
+  HISTORY_LIST.splice(deleteTargetIdx, 1);
+  // 리렌더링
+  displayInOutListItems(HISTORY_LIST);
+  displayBalance(HISTORY_LIST);
 }
 
 // ---------------------------------------------------------------
@@ -216,7 +200,9 @@ function onClickModalSaveBtn() {
     },
   ];
 
+  // 객체에 값 추가
   HISTORY_LIST.push(listItem[0]);
+  // 리렌더링
   displayInOutListItems(HISTORY_LIST);
   displayBalance(HISTORY_LIST);
 
@@ -230,29 +216,4 @@ function onClickModalClose() {
   ModalOpenBtn.style.display = 'none';
   blackBg.style.display = 'none';
   event.preventDefault;
-}
-
-// ---------------------------------------------------------------
-// 나의자산, 총수입, 총지출 업데이트 함수
-function amountUpdate(total, income, outcome, newAmount, inOrOut, target) {
-  let totalAmount = Number(total.innerText);
-  let incomeAmount = Number(income.innerText);
-  let outcomeAmount = Number(outcome.innerText);
-  let updateAmount = Number(newAmount.replace(/,/g, ''));
-
-  switch (target) {
-    case 'delete':
-      if (inOrOut === 'out') {
-        outcomeAmount -= updateAmount;
-        outcome.innerText = outcomeAmount;
-        totalAmount += updateAmount;
-        total.innerText -= totalAmount;
-      } else {
-        incomeAmount -= updateAmount;
-        income.innerText = incomeAmount;
-        totalAmount -= updateAmount;
-        total.innerText = totalAmount;
-      }
-      break;
-  }
 }
