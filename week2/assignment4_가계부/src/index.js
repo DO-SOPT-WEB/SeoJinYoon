@@ -47,12 +47,12 @@ function createInOutList(item) {
     </li>
   `;
 }
-// 초기 렌더링 시 li html 동적 생성
+// li html 동적 생성
 function displayInOutListItems(items) {
   const inOutListContainer = document.getElementById('inout-list');
   inOutListContainer.innerHTML = items.map((item) => createInOutList(item)).join('');
 }
-// 초기 렌더링 시 HISTORY_LIST 값에 따른 값 업데이트 함수
+// HISTORY_LIST에 따른 값 업데이트 함수
 function displayBalance(items) {
   const income_amount_Element = document.getElementById('income_amount');
   const outcome_amount_Element = document.getElementById('outcome_amount');
