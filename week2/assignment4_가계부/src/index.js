@@ -30,6 +30,7 @@ const HISTORY_LIST = [
   },
 ];
 
+// 초기 렌더링 시 HISTORY_LIST 값에 따른 li html 
 function createInOutList(item) {
   return `
     <li>
@@ -46,11 +47,12 @@ function createInOutList(item) {
     </li>
   `;
 }
+// 초기 렌더링 시 li html 동적 생성
 function displayInOutListItems(items) {
   const inOutListContainer = document.getElementById('inout-list');
   inOutListContainer.innerHTML = items.map((item) => createInOutList(item)).join('');
 }
-
+// 초기 렌더링 시 HISTORY_LIST 값에 따른 값 업데이트 함수
 function displayBalance(items) {
   const income_amount_Element = document.getElementById('income_amount');
   const outcome_amount_Element = document.getElementById('outcome_amount');
@@ -84,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
   displayBalance(HISTORY_LIST);
 });
 
+// ---------------------------------------------------------------
+
 // input 체크 여부에 따른 렌더링
 function displayCheckedElement(item) {
   const checkedEls = document.querySelectorAll('input[name="inOrOut"]:checked');
@@ -108,6 +112,7 @@ function displayCheckedElement(item) {
   }
 }
 
+// ---------------------------------------------------------------
 // 삭제버튼
 function deleteHandler(e) {
   // DOM에서 지우기 위한 li element
@@ -140,12 +145,21 @@ function deleteHandler(e) {
   toDeleteElement.remove();
 }
 
-// select 박스 option HTML
+// ---------------------------------------------------------------
+// 모달창 띄우기
+function onClickModalOpen() {
+  const ModalOpenBtn = document.getElementById('modal');
+  const blackBg = document.getElementById('black_bg');
+  ModalOpenBtn.style.display = 'block';
+  blackBg.style.display = 'block';
+}
+
+// 모달창 select 박스 option(수입, 지출) HTML
 function type_option(item) {
   return `<option value${item}>${item}</option>`;
 }
 
-// 수입,지출 버튼 handler
+// 모달창 수입,지출 버튼 handler
 function onClickModalTypeBtn() {
   // 버튼 클릭시 색상 변경
   const modalTypeBtns = document.getElementsByClassName('modal_btn');
@@ -178,18 +192,10 @@ function onClickModalTypeBtn() {
   }
 }
 
-// ---------------------
-// 모달창 띄우기
-function onClickModalOpen() {
-  const ModalOpenBtn = document.getElementById('modal');
-  const blackBg = document.getElementById('black_bg');
-  ModalOpenBtn.style.display = 'block';
-  blackBg.style.display = 'block';
-}
-
-// 모달값 저장 및 기존값들 업데이트
+// 모달창에 입력한 값 저장 및 기존값들 업데이트
 function onClickModalSaveBtn() {
   event.preventDefault();
+  // 입력받은 값 저장
   const content_type_container = document.getElementById('content_type');
   const modal_list_inOrOut = document.getElementsByClassName('active'); // 수입, 지출 중 눌린 값 가져오기
   const modal_list_place = document.getElementById('list_place');
@@ -233,7 +239,9 @@ function onClickModalClose() {
   event.preventDefault;
 }
 
-// 버튼에 따른 값 업데이트
+
+// ---------------------------------------------------------------
+// 나의자산, 총수입, 총지출 업데이트 함수
 function amountUpdate(total, income, outcome, newAmount, inOrOut, target) {
   let totalAmount = Number(total.innerText);
   let incomeAmount = Number(income.innerText);
