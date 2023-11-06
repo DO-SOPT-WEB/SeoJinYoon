@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Button = (props) => {
   return (
     <>
-      <ElButton>{props.children}</ElButton>
+      <ElButton $selectedContent={props.$selectedContent}>{props.children}</ElButton>
     </>
   );
 };
@@ -13,16 +13,16 @@ const Button = (props) => {
 export default Button;
 
 const ElButton = styled.button`
-    display: flex
-    justify-content: center;
-    align-items: center;
+  display: ${(props) => (props.$selectedContent === "" ? 'none' : 'flex')};
+  justify-content: center;
+  align-items: center;
 
-    padding: 1rem 1.5rem;
+  padding: 0.5rem 1.5rem;
 
-    background-color: #F5F5F5;
-    border: 1px solid gray;
-    border-radius: 0.5rem;
+  background-color: #f5f5f5;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
 
-    font-size: 18px;
-    cursor: pointer;
+  font-size: 18px;
+  cursor: pointer;
 `;

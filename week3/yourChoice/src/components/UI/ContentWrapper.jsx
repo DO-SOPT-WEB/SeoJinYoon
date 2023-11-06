@@ -8,15 +8,15 @@ const ContentWrapper = (props) => {
     )
 }
 
-
 const Div = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     
-    padding: 2.5rem 12rem;
-    margin: 2rem 10rem;
+    height: 35rem;
+    padding: 2rem 8rem;
+    margin: 4rem 10rem;
     border-radius: 0.5rem;
     
     background-color: #FDEDEC;

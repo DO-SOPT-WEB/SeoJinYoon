@@ -10,7 +10,15 @@ const Nav = (props) => {
     <>
       <NavHeader>
         <H1>오늘의 점메추</H1>
-        <NavButton>처음으로</NavButton>
+        {props.isStart !== '' && (
+          <NavButton
+            onClick={() => {
+              props.isStartHandler('');
+            }}
+          >
+            처음으로
+          </NavButton>
+        )}
       </NavHeader>
     </>
   );
@@ -19,12 +27,12 @@ const Nav = (props) => {
 export default Nav;
 
 const NavHeader = styled.nav`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
-    padding: 2rem;
+  padding: 2rem;
 
-    background-color: #FDEDEC;
-`
+  background-color: #fdedec;
+`;

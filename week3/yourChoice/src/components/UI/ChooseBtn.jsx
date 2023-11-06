@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // 추천 선택 버튼
 const ChooseBtn = (props) => {
-  return <Button>{props.children}</Button>;
+  return <Button onClick={props.onClick}>{props.children}</Button>;
 };
 
 // width props로 관리하기
@@ -18,7 +18,11 @@ const Button = styled.button`
   border-radius: 1.5rem;
   border: 1px solid gray;
   background-color: white;
-  cursor: pointer
+  cursor: pointer;
+
+  &:hover {
+    background-color: pink;
+  }
 `;
 
 export default ChooseBtn;

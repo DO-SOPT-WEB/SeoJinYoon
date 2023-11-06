@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // position 적용 위해서 다른 버튼들과 분리
 const NavButton = (props) => {
     return (
-        <Button>{props.children}</Button>
+        <Button onClick={props.onClick}>{props.children}</Button>
     )
 };
 
