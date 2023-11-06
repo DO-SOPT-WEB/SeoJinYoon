@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// 시작, 다시하기 버튼
+// start, 다시하기 버튼
 const Button = (props) => {
   return (
     <>
