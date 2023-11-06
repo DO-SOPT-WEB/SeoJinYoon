@@ -1,7 +1,15 @@
+import React from 'react';
+import Nav from './components/Layout/Nav';
+import Content from './components/Layout/Content';
+import ChooseContent from './components/Layout/ChooseContent';
+
 function App() {
   return (
-    <h1>hi</h1>
-  )
+    <>
+      <Nav />
+      <Content />
+    </>
+  );
 }
 
-export default App
+export default App;
