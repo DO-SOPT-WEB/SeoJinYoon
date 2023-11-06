@@ -33,6 +33,7 @@ const Content = (props) => {
       <SelectedContent $selectedContent={props.isStart}>
         <H1>{props.isStart}</H1>
       </SelectedContent>
+      
       <Button $selectedContent={props.isStart}>
         Start
       </Button>
