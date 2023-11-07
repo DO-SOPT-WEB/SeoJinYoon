@@ -3,17 +3,20 @@ import styled from 'styled-components';
 
 import ContentWrapper from '../UI/ContentWrapper';
 import ContentHeader from '../UI/ContentHeader';
-import StepButton from '../UI/stepButton';
 import H1 from '../UI/H1';
 
 const Prefer = () => {
+  // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
   const [btnActive, setBtnActive] = useState();
+
+  // 다음으로 버튼 활성화
+  const [goNextBtn, setGoNextBtn] = useState(false);
+
   const songTypeData = ['인디/밴드', 'k-pop', '팝송'];
 
   const onClickTypeBtn = (e) => {
-    setBtnActive((prev) => {
-      return e.target.value;
-    });
+    setBtnActive((prev) => e.target.value);
+    setGoNextBtn(true);
   };
 
   return (
@@ -25,7 +28,7 @@ const Prefer = () => {
       <ChooseContainer>
         {songTypeData.map((type, idx) => {
           return (
-            <SelectBtn key={idx} value={idx} className={idx == btnActive ? 'active' : ""} onClick={onClickTypeBtn}>
+            <SelectBtn key={idx} value={idx} className={idx == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
               <H1>{type}</H1>
             </SelectBtn>
           );
@@ -33,8 +36,8 @@ const Prefer = () => {
       </ChooseContainer>
 
       <StepBtncontainer>
-        <StepButton>이전으로</StepButton>
-        <StepButton>다음으로</StepButton>
+        <StepGoBackButton >이전으로</StepGoBackButton>
+        <StepGoNextButton $goNextActive={goNextBtn}>다음으로</StepGoNextButton>
       </StepBtncontainer>
     </ContentWrapper>
   );
@@ -84,4 +87,34 @@ const StepBtncontainer = styled.div`
 
   margin: 1rem 0;
   width: 100%;
+`;
+
+const StepGoBackButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem 1.5rem;
+
+  background-color: lightblue;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+const StepGoNextButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem 1.5rem;
+
+  background-color: ${(props) => (props.$goNextActive ? 'lightblue' : 'gray')};
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+
+  font-size: 18px;
+  cursor: ${(props) => (props.$goNextActive ? 'pointer' : '')};
 `;

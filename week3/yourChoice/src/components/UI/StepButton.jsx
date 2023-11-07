@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StepButton = (props) => {
   return (
     <>
-      <Button>{props.children}</Button>
+      <Button $goNextActive={props.$goNextActive}>{props.children}</Button>
     </>
   );
 };
@@ -19,10 +19,11 @@ const Button = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: #f5f5f5;
+  background-color: ${props => props.goNextActive ? 'lightblue' : 'gray'};
   border: 1px solid gray;
   border-radius: 0.5rem;
 
   font-size: 18px;
-  cursor: pointer;
+  cursor: ${props => props.goNextActive ? 'pointer' : ''};
+  
 `;

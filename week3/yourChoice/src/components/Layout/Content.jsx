@@ -35,7 +35,7 @@ const Content = (props) => {
         </ChooseContainer>
       )}
 
-      
+
       <SelectedContent $selectedContent={props.isStart}>
         <H1>{props.isStart}</H1>
       </SelectedContent>
@@ -53,7 +53,6 @@ export default Content;
 
 const ChooseContainer = styled.div`
   display: flex;
-  // display: ${(props) => (props.$selectedContent === '' ? 'flex' : 'none')};
   flex-direction: row;
   gap: 2rem;
   justify-content: center;
