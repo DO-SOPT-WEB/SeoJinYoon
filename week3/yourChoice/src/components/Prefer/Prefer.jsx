@@ -7,13 +7,13 @@ import H1 from '../UI/H1';
 
 const Prefer = () => {
   // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
-  const [btnActive, setBtnActive] = useState();
+  const [btnActive, setBtnActive] = useState('');
 
   // 다음으로 버튼 활성화
   const [goNextBtn, setGoNextBtn] = useState(false);
 
   // kpop component 렌더링 조건
-  const [KpopView, setKpopView] = useState(false);
+  const [songTypeView, setSongTypeView] = useState(false);
 
   const FILTER_TYPE = ['인디/밴드', 'k-pop', '팝송'];
   const SONG_TYPE = ['신나는', '잔잔한', '주인장 추천'];
@@ -24,12 +24,12 @@ const Prefer = () => {
   };
 
   const onClickPrevBtn = () => {
-    setKpopView(false);
-    setGoNextBtn(true);
+    setSongTypeView(false);
+    setGoNextBtn(false);
   }
 
   const onClickNextBtn = () => {
-    setKpopView(true);
+    setSongTypeView(true);
     setGoNextBtn(false);
   }
 
@@ -37,11 +37,11 @@ const Prefer = () => {
     <>
     <ContentWrapper>
       <ContentHeader>
-        {KpopView ? <H1>그럼 이 중에서는 뭐가 끌려?</H1> : <H1>지금 무슨 노래를 듣고싶어?</H1>}
+        {songTypeView ? <H1>그럼 이 중에서는 뭐가 끌려?</H1> : <H1>지금 무슨 노래를 듣고싶어?</H1>}
       </ContentHeader>
 
       <ChooseContainer>
-        {KpopView ? 
+        {songTypeView ? 
         SONG_TYPE.map((item, idx) => {
           return (
             <SelectBtn key={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
@@ -141,4 +141,5 @@ const StepGoNextButton = styled.button`
 
   font-size: 18px;
   cursor: ${(props) => (props.$goNextActive ? 'pointer' : '')};
+  pointer-events: ${(props) => (props.$goNextActive ? '' : 'none')};
 `;
