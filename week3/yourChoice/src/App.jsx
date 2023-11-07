@@ -21,15 +21,19 @@ function App() {
           setGameStart(startClicked);
         }}
       />
-      {gameStart ===true ? <Prefer /> : <Content
-        isStart={isStart}
-        isStartHandler={(startContent) => {
-          setIsStart(startContent);
-        }}
-        setGameHandler={(startClicked) => {
-          setGameStart(startClicked);
-        }}
-      />}
+      {gameStart === true ? (
+        <Prefer />
+      ) : (
+        <Content
+          isStart={isStart}
+          isStartHandler={(startContent) => {
+            setIsStart(startContent);
+          }}
+          setGameHandler={(startClicked) => {
+            setGameStart(startClicked);
+          }}
+        />
+      )}
     </>
   );
 }

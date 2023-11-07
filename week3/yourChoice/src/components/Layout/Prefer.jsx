@@ -1,19 +1,41 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import ContentWrapper from '../UI/ContentWrapper';
 import ContentHeader from '../UI/ContentHeader';
+import StepButton from '../UI/stepButton';
 import H1 from '../UI/H1';
 
 const Prefer = () => {
+  const [btnActive, setBtnActive] = useState();
+  const songTypeData = ['인디/밴드', 'k-pop', '팝송'];
+
+  const onClickTypeBtn = (e) => {
+    setBtnActive((prev) => {
+      return e.target.value;
+    });
+  };
+
   return (
     <ContentWrapper>
-      <ContentHeader>지금 무슨 노래를 듣고싶어?</ContentHeader>
+      <ContentHeader>
+        <H1>지금 무슨 노래를 듣고싶어?</H1>
+      </ContentHeader>
 
       <ChooseContainer>
-        <SelectBtn><H1>인디/밴드</H1></SelectBtn>
-        <SelectBtn><H1>k-pop</H1></SelectBtn>
-        <SelectBtn><H1>팝송</H1></SelectBtn>
+        {songTypeData.map((type, idx) => {
+          return (
+            <SelectBtn key={idx} value={idx} className={idx == btnActive ? 'active' : ""} onClick={onClickTypeBtn}>
+              <H1>{type}</H1>
+            </SelectBtn>
+          );
+        })}
       </ChooseContainer>
+
+      <StepBtncontainer>
+        <StepButton>이전으로</StepButton>
+        <StepButton>다음으로</StepButton>
+      </StepBtncontainer>
     </ContentWrapper>
   );
 };
@@ -29,7 +51,7 @@ const ChooseContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 20rem;
-  margin: 3rem 0;
+  margin: 2.5rem 0 0.5rem 0;
 `;
 
 const SelectBtn = styled.button`
@@ -46,6 +68,20 @@ const SelectBtn = styled.button`
   cursor: pointer;
 
   &:hover {
+    border: 3px solid gray;
+  }
+  &.active {
     background-color: pink;
   }
+`;
+
+const StepBtncontainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  margin: 1rem 0;
+  width: 100%;
 `;
