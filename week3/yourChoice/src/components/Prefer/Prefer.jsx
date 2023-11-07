@@ -23,6 +23,11 @@ const Prefer = () => {
     setGoNextBtn(true);
   };
 
+  const onClickPrevBtn = () => {
+    setKpopView(false);
+    setGoNextBtn(true);
+  }
+
   const onClickNextBtn = () => {
     setKpopView(true);
     setGoNextBtn(false);
@@ -33,21 +38,20 @@ const Prefer = () => {
     <ContentWrapper>
       <ContentHeader>
         {KpopView ? <H1>그럼 이 중에서는 뭐가 끌려?</H1> : <H1>지금 무슨 노래를 듣고싶어?</H1>}
-        {/* <H1>지금 무슨 노래를 듣고싶어?</H1> */}
       </ContentHeader>
 
       <ChooseContainer>
         {KpopView ? 
         SONG_TYPE.map((item, idx) => {
           return (
-            <SelectBtn key={idx} value={idx}>
+            <SelectBtn key={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
               <H1>{item}</H1>
             </SelectBtn>
           );
         }) : 
         FILTER_TYPE.map((type, idx) => {
           return (
-            <SelectBtn key={idx} value={idx} className={idx == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
+            <SelectBtn key={idx} value={type} className={type == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
               <H1>{type}</H1>
             </SelectBtn>
           );
@@ -55,7 +59,7 @@ const Prefer = () => {
       </ChooseContainer>
 
       <StepBtncontainer>
-        <StepGoBackButton>이전으로</StepGoBackButton>
+        <StepGoBackButton onClick={onClickPrevBtn}>이전으로</StepGoBackButton>
         <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>다음으로</StepGoNextButton>
       </StepBtncontainer>
     </ContentWrapper>
