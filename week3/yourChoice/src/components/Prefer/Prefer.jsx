@@ -6,69 +6,74 @@ import ContentHeader from '../UI/ContentHeader';
 import H1 from '../UI/H1';
 
 const Prefer = () => {
-  // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
-  const [btnActive, setBtnActive] = useState('');
+  const CONTENT_HEADER = ['지금 무슨 노래를 듣고싶어?', '그럼 이 중에서는 뭐가 끌려?', '마지막으로 선택해 줘!'];
+
+  const SONG_DATA = [
+    ['인디/밴드', 'k-pop', '팝송'],
+    ['신나는', '잔잔한', '주인장 추천'],
+    ['걸그룹', '보이그룹', '솔로'],
+  ];
+
+  // 단계 확인용
+  const [step, setStep] = useState(0);
 
   // 다음으로 버튼 활성화
   const [goNextBtn, setGoNextBtn] = useState(false);
 
-  // kpop component 렌더링 조건
-  const [songTypeView, setSongTypeView] = useState(false);
-
-  const FILTER_TYPE = ['인디/밴드', 'k-pop', '팝송'];
-  const SONG_TYPE = ['신나는', '잔잔한', '주인장 추천'];
+  // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
+  const [btnActive, setBtnActive] = useState('');
 
   const onClickTypeBtn = (e) => {
     setBtnActive((prev) => e.target.value);
     setGoNextBtn(true);
   };
 
-  const onClickPrevBtn = () => {
-    setSongTypeView(false);
-    setGoNextBtn(false);
-  }
-
   const onClickNextBtn = () => {
-    setSongTypeView(true);
+    setStep((prev) => (prev += 1));
     setGoNextBtn(false);
-  }
+  };
+
+  const onClickPrevBtn = () => {
+    setStep((prev) => (prev -= 1));
+  };
 
   return (
     <>
-    <ContentWrapper>
-      <ContentHeader>
-        {songTypeView ? <H1>그럼 이 중에서는 뭐가 끌려?</H1> : <H1>지금 무슨 노래를 듣고싶어?</H1>}
-      </ContentHeader>
+      <ContentWrapper>
+        <ContentHeader>
+          <H1>{CONTENT_HEADER[step]}</H1>
+        </ContentHeader>
 
-      <ChooseContainer>
-        {songTypeView ? 
-        SONG_TYPE.map((item, idx) => {
-          return (
-            <SelectBtn key={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
-              <H1>{item}</H1>
-            </SelectBtn>
-          );
-        }) : 
-        FILTER_TYPE.map((type, idx) => {
-          return (
-            <SelectBtn key={idx} value={type} className={type == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
-              <H1>{type}</H1>
-            </SelectBtn>
-          );
-        })}
-      </ChooseContainer>
+        <StepNum>{step+1}/3</StepNum>
 
-      <StepBtncontainer>
-        <StepGoBackButton onClick={onClickPrevBtn}>이전으로</StepGoBackButton>
-        <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>다음으로</StepGoNextButton>
-      </StepBtncontainer>
-    </ContentWrapper>
-    
+        <ChooseContainer>
+          {SONG_DATA[step].map((item, idx) => {
+            return (
+              <SelectBtn key={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
+                <H1>{item}</H1>
+              </SelectBtn>
+            );
+          })}
+        </ChooseContainer>
+
+        <StepBtncontainer>
+          <StepGoBackButton onClick={onClickPrevBtn}>이전으로</StepGoBackButton>
+          <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>
+            다음으로
+          </StepGoNextButton>
+        </StepBtncontainer>
+      </ContentWrapper>
     </>
   );
 };
 
 export default Prefer;
+
+const StepNum = styled.div`
+  position: absolute;
+  top: 6rem;
+  right: 9rem;
+`;
 
 const ChooseContainer = styled.div`
   display: flex;
