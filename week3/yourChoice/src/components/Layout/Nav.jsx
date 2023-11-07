@@ -13,6 +13,7 @@ const Nav = (props) => {
           <NavButton
             onClick={() => {
               props.isStartHandler('');
+              props.setGameHandler(false);
             }}
           >
             처음으로

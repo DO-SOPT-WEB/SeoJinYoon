@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import Nav from './components/Layout/Nav';
 import Content from './components/Layout/Content';
+import Prefer from './components/Layout/Prefer';
 
 function App() {
+  // 처음처럼 버튼
   const [isStart, setIsStart] = useState('');
+
+  // start 버튼
+  const [gameStart, setGameStart] = useState(false);
 
   return (
     <>
@@ -12,13 +17,19 @@ function App() {
         isStartHandler={(startContent) => {
           setIsStart(startContent);
         }}
+        setGameHandler={(startClicked) => {
+          setGameStart(startClicked);
+        }}
       />
-      <Content
+      {gameStart ===true ? <Prefer /> : <Content
         isStart={isStart}
         isStartHandler={(startContent) => {
           setIsStart(startContent);
         }}
-      />
+        setGameHandler={(startClicked) => {
+          setGameStart(startClicked);
+        }}
+      />}
     </>
   );
 }

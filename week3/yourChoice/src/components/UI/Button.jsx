@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Button = (props) => {
   return (
     <>
-      <ElButton $selectedContent={props.$selectedContent}>{props.children}</ElButton>
+      <ElButton $selectedContent={props.$selectedContent} onClick={props.onClick}>{props.children}</ElButton>
     </>
   );
 };
