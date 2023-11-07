@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Nav from './components/Layout/Nav';
 import Content from './components/Layout/Content';
-import Prefer from './components/Layout/Prefer';
+import Prefer from './components/Prefer/Prefer';
 
 function App() {
   // 처음처럼 버튼

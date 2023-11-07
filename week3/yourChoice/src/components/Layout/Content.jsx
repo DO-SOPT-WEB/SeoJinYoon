@@ -6,7 +6,7 @@ import ContentHeader from '../UI/ContentHeader';
 import H1 from '../UI/H1';
 import ChooseBtn from '../UI/ChooseBtn';
 import Button from '../UI/Button';
-import Prefer from './Prefer';
+import Prefer from '../Prefer/Prefer';
 
 // 전체 content div
 const Content = (props) => {
@@ -35,16 +35,18 @@ const Content = (props) => {
         </ChooseContainer>
       )}
 
-
       <SelectedContent $selectedContent={props.isStart}>
         <H1>{props.isStart}</H1>
       </SelectedContent>
 
-      <Button $selectedContent={props.isStart} onClick={() => {props.setGameHandler(true)}}>
+      <Button
+        $selectedContent={props.isStart}
+        onClick={() => {
+          props.setGameHandler(true);
+        }}
+      >
         Start
       </Button>
-      
-
     </ContentWrapper>
   );
 };

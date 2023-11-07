@@ -12,21 +12,40 @@ const Prefer = () => {
   // 다음으로 버튼 활성화
   const [goNextBtn, setGoNextBtn] = useState(false);
 
-  const songTypeData = ['인디/밴드', 'k-pop', '팝송'];
+  // kpop component 렌더링 조건
+  const [KpopView, setKpopView] = useState(false);
+
+  const FILTER_TYPE = ['인디/밴드', 'k-pop', '팝송'];
+  const SONG_TYPE = ['신나는', '잔잔한', '주인장 추천'];
 
   const onClickTypeBtn = (e) => {
     setBtnActive((prev) => e.target.value);
     setGoNextBtn(true);
   };
 
+  const onClickNextBtn = () => {
+    setKpopView(true);
+    setGoNextBtn(false);
+  }
+
   return (
+    <>
     <ContentWrapper>
       <ContentHeader>
-        <H1>지금 무슨 노래를 듣고싶어?</H1>
+        {KpopView ? <H1>그럼 이 중에서는 뭐가 끌려?</H1> : <H1>지금 무슨 노래를 듣고싶어?</H1>}
+        {/* <H1>지금 무슨 노래를 듣고싶어?</H1> */}
       </ContentHeader>
 
       <ChooseContainer>
-        {songTypeData.map((type, idx) => {
+        {KpopView ? 
+        SONG_TYPE.map((item, idx) => {
+          return (
+            <SelectBtn key={idx} value={idx}>
+              <H1>{item}</H1>
+            </SelectBtn>
+          );
+        }) : 
+        FILTER_TYPE.map((type, idx) => {
           return (
             <SelectBtn key={idx} value={idx} className={idx == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
               <H1>{type}</H1>
@@ -36,10 +55,12 @@ const Prefer = () => {
       </ChooseContainer>
 
       <StepBtncontainer>
-        <StepGoBackButton >이전으로</StepGoBackButton>
-        <StepGoNextButton $goNextActive={goNextBtn}>다음으로</StepGoNextButton>
+        <StepGoBackButton>이전으로</StepGoBackButton>
+        <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>다음으로</StepGoNextButton>
       </StepBtncontainer>
     </ContentWrapper>
+    
+    </>
   );
 };
 
@@ -47,7 +68,6 @@ export default Prefer;
 
 const ChooseContainer = styled.div`
   display: flex;
-  // display: ${(props) => (props.$selectedContent === '' ? 'flex' : 'none')};
   flex-direction: row;
   gap: 2rem;
   justify-content: center;

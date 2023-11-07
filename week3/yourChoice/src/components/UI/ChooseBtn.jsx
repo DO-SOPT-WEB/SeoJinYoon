@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// 추천 선택 버튼
+// 첫 화면 추천 선택 버튼
 const ChooseBtn = (props) => {
   return <Button onClick={props.onClick}>{props.children}</Button>;
 };
