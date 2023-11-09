@@ -141,7 +141,6 @@ const Prefer = (props) => {
           <StepBtncontainer>
             <ToStartButton
               onClick={() => {
-                props.isStartHandler('');
                 props.setGameHandler(false);
               }}
             >
