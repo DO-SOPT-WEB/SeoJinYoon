@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Nav from './components/Layout/Nav';
 import Content from './components/Layout/Content';
 import Prefer from './components/Prefer/Prefer';
+import Random from './components/Random/Random';
 
 function App() {
-  // 처음처럼 버튼
+  // nav바 처음처럼 버튼
   const [isStart, setIsStart] = useState('');
 
   // start 버튼
@@ -21,16 +22,18 @@ function App() {
           setGameStart(startClicked);
         }}
       />
-      {gameStart === true ? (
+      {gameStart === true ? ( isStart === "취향대로 추천" ? (
         <Prefer
-          isStartHandler={(startContent) => {
-            setIsStart(startContent);
-          }}
-          setGameHandler={(startClicked) => {
-            setGameStart(startClicked);
-          }}
-        />
+        isStartHandler={(startContent) => {
+          setIsStart(startContent);
+        }}
+        setGameHandler={(startClicked) => {
+          setGameStart(startClicked);
+        }}
+      />
       ) : (
+        <Random />
+      )) : (
         <Content
           isStart={isStart}
           isStartHandler={(startContent) => {
