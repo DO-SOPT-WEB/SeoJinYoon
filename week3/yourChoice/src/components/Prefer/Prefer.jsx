@@ -6,7 +6,7 @@ import ContentHeader from '../UI/ContentHeader';
 import H1 from '../UI/H1';
 
 const Prefer = () => {
-  const CONTENT_HEADER = ['지금 무슨 노래를 듣고싶어?', '그럼 이 중에서는 뭐가 끌려?', '마지막으로 선택해 줘!'];
+  const CONTENT_HEADER = ['지금 무슨 노래를 듣고싶어?', '그럼 이 중에서는 뭐가 끌려?', '마지막으로 선택해 줘!', '오늘의 추천 플리는 바로!'];
 
   const SONG_DATA = [
     ['인디/밴드', 'k-pop', '팝송'],
@@ -22,10 +22,21 @@ const Prefer = () => {
 
   // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
   const [btnActive, setBtnActive] = useState('');
+  
+  // 어느 것이 눌렸는지 저장, 
+  const [pickedArr, setPickedArr] = useState({
+    0: '',
+    1: '',
+    2: ''
+  });
+
+  // 이미지 경로 매칭
+  const [imgSrc, setImgSrc] = useState('');
 
   const onClickTypeBtn = (e) => {
     setBtnActive((prev) => e.target.value);
     setGoNextBtn(true);
+    setPickedArr((prevPickedArr) => {return {...pickedArr, [step]: e.target.name};  });
   };
 
   const onClickNextBtn = () => {
@@ -35,7 +46,19 @@ const Prefer = () => {
 
   const onClickPrevBtn = () => {
     setStep((prev) => (prev -= 1));
+    setGoNextBtn(false);
   };
+
+  // 결과보기 버튼
+  const onClickResultBtn = () => {
+    let result = [];
+    setStep((prev) => (prev += 1));
+    for (const [key, value] of Object.entries(pickedArr)) {
+      result.push(value);
+    }
+    let resultImgSrc = `src/assets/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
+    setImgSrc(resultImgSrc);
+  }
 
   return (
     <>
@@ -44,23 +67,30 @@ const Prefer = () => {
           <H1>{CONTENT_HEADER[step]}</H1>
         </ContentHeader>
 
-        <StepNum>{step+1}/3</StepNum>
+        {step !== 3 ? <StepNum>{step + 1}/3</StepNum> : ''}
 
         <ChooseContainer>
-          {SONG_DATA[step].map((item, idx) => {
+          {step !== 3 ?
+           SONG_DATA[step].map((item, idx) => {
             return (
-              <SelectBtn key={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
+              <SelectBtn key={idx} name={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
                 <H1>{item}</H1>
               </SelectBtn>
             );
-          })}
+          }): 
+          <img src={imgSrc}></img>
+          }
         </ChooseContainer>
 
         <StepBtncontainer>
           <StepGoBackButton onClick={onClickPrevBtn}>이전으로</StepGoBackButton>
-          <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>
-            다음으로
-          </StepGoNextButton>
+          {step !== 2 ? (
+            <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>
+              다음으로
+            </StepGoNextButton>
+          ) : (
+            <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickResultBtn}>결과보기</StepGoNextButton>
+          )}
         </StepBtncontainer>
       </ContentWrapper>
     </>
