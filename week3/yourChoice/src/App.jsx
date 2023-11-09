@@ -22,18 +22,24 @@ function App() {
           setGameStart(startClicked);
         }}
       />
-      {gameStart === true ? ( isStart === "취향대로 추천" ? (
-        <Prefer
-        isStartHandler={(startContent) => {
-          setIsStart(startContent);
-        }}
-        setGameHandler={(startClicked) => {
-          setGameStart(startClicked);
-        }}
-      />
+      {gameStart === true ? (
+        isStart === '취향대로 추천' ? (
+          <Prefer
+            isStartHandler={(startContent) => {
+              setIsStart(startContent);
+            }}
+            setGameHandler={(startClicked) => {
+              setGameStart(startClicked);
+            }}
+          />
+        ) : (
+          <Random
+            setGameHandler={(startClicked) => {
+              setGameStart(startClicked);
+            }}
+          />
+        )
       ) : (
-        <Random />
-      )) : (
         <Content
           isStart={isStart}
           isStartHandler={(startContent) => {

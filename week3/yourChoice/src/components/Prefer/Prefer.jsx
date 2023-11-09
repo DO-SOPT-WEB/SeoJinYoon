@@ -84,7 +84,7 @@ const Prefer = (props) => {
     for (const [key, value] of Object.entries(pickedArr)) {
       result.push(value);
     }
-    let resultImgSrc = `src/assets/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
+    let resultImgSrc = `src/assets/img/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
 
     setSongTitle(SONG_TITLE[result[0]][result[1]][result[2]]);
     setImgSrc(resultImgSrc);
