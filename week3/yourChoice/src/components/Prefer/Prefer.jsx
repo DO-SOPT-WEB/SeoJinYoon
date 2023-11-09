@@ -19,6 +19,24 @@ const Prefer = () => {
     ['여자', '남자', '상관없어!'],
   ];
 
+  const SONG_TITLE = [
+    [
+      ['제이레빗 happy things', '데이식스 한 페이지가 될 수 있게', 'LUCY 아니근데진짜'],
+      ['최유리 바람', '데이식스 hihello', '데이먼스이어 yours'],
+      ['옥상달빛 수고했어 오늘도', '하현상 등대', 'KozyPop Dezavu']
+    ],
+    [
+      ['아이브 iam', '부석순 파이팅해야지', '전소미 fast forward'],
+      ['뉴진스 Ditto', 'EXO 첫눈', '수지 cape'],
+      ['STAYC so what', '엔시티 드림 미니카', '선미 보랏빛 밤']
+    ],
+    [
+      ['Taylor Swift Shake it off', 'Sam Smith Unholy', 'Justin Bieber, 라로이 STAY'],
+      ['Selena Gomez lose you to love me', 'Justin Bieber off my face', '5S0S high'],
+      ['Selena Gomez Who says', 'Charlie Puth That\'s hilarious', 'Why don\'t we What am I']
+    ]
+  ];
+
   // 단계 확인용
   const [step, setStep] = useState(0);
 
@@ -37,6 +55,9 @@ const Prefer = () => {
 
   // 이미지 경로 매칭
   const [imgSrc, setImgSrc] = useState('');
+
+  // 노래 제목 매칭
+  const [songTitle, setSongTitle] = useState('');
 
   const onClickTypeBtn = (e) => {
     setBtnActive((prev) => e.target.value);
@@ -64,6 +85,8 @@ const Prefer = () => {
       result.push(value);
     }
     let resultImgSrc = `src/assets/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
+
+    setSongTitle(SONG_TITLE[result[0]][result[1]][result[2]]);
     setImgSrc(resultImgSrc);
   };
 
@@ -92,11 +115,15 @@ const Prefer = () => {
               );
             })
           ) : (
-            <img src={imgSrc}></img>
+            <ResultContainer>
+              <img src={imgSrc} />
+              <ResultTitle><h2>{songTitle}</h2></ResultTitle>
+            </ResultContainer>
           )}
         </ChooseContainer>
-
-        <StepBtncontainer>
+        
+        {step !==3 ? 
+        (<StepBtncontainer>
           <StepGoBackButton onClick={onClickPrevBtn}>이전으로</StepGoBackButton>
           {step !== 2 ? (
             <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>
@@ -108,6 +135,12 @@ const Prefer = () => {
             </StepGoNextButton>
           )}
         </StepBtncontainer>
+        )
+        : (
+        <StepBtncontainer>
+          <ToStartButton>다시하기</ToStartButton>
+        </StepBtncontainer>
+      )}
       </ContentWrapper>
     </>
   );
@@ -153,6 +186,32 @@ const SelectBtn = styled.button`
   }
 `;
 
+const ResultContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 2rem;
+  height: 20rem;
+  width: 100%;
+`
+
+const ResultImg = styled.img`
+  width: 50%;
+`
+
+const ResultTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 40%;
+  height: 3rem;
+  background-color: white;
+  border-radius: 2rem;
+`
+
 const StepBtncontainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -194,3 +253,18 @@ const StepGoNextButton = styled.button`
   cursor: ${(props) => (props.$goNextActive ? 'pointer' : '')};
   pointer-events: ${(props) => (props.$goNextActive ? '' : 'none')};
 `;
+
+const ToStartButton = styled.button`
+display: flex;
+justify-content: center;
+align-items: center;
+
+padding: 0.5rem 1.5rem;
+
+background-color: ligthblue;
+border: 1px solid gray;
+border-radius: 0.5rem;
+
+font-size: 18px;
+cursor: pointer;
+`
