@@ -6,12 +6,17 @@ import ContentHeader from '../UI/ContentHeader';
 import H1 from '../UI/H1';
 
 const Prefer = () => {
-  const CONTENT_HEADER = ['지금 무슨 노래를 듣고싶어?', '그럼 이 중에서는 뭐가 끌려?', '마지막으로 선택해 줘!', '오늘의 추천 플리는 바로!'];
+  const CONTENT_HEADER = [
+    '지금 무슨 노래를 듣고싶어?',
+    '그럼 이 중에서는 뭐가 끌려?',
+    '마지막으로 선택해 줘!',
+    '오늘의 추천 플리는 바로!',
+  ];
 
   const SONG_DATA = [
     ['인디/밴드', 'k-pop', '팝송'],
     ['신나는', '잔잔한', '주인장 추천'],
-    ['걸그룹', '보이그룹', '솔로'],
+    ['여자', '남자', '상관없어!'],
   ];
 
   // 단계 확인용
@@ -22,12 +27,12 @@ const Prefer = () => {
 
   // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
   const [btnActive, setBtnActive] = useState('');
-  
-  // 어느 것이 눌렸는지 저장, 
+
+  // 어느 것이 눌렸는지 저장,
   const [pickedArr, setPickedArr] = useState({
     0: '',
     1: '',
-    2: ''
+    2: '',
   });
 
   // 이미지 경로 매칭
@@ -36,7 +41,9 @@ const Prefer = () => {
   const onClickTypeBtn = (e) => {
     setBtnActive((prev) => e.target.value);
     setGoNextBtn(true);
-    setPickedArr((prevPickedArr) => {return {...pickedArr, [step]: e.target.name};  });
+    setPickedArr((prevPickedArr) => {
+      return { ...pickedArr, [step]: e.target.name };
+    });
   };
 
   const onClickNextBtn = () => {
@@ -58,7 +65,7 @@ const Prefer = () => {
     }
     let resultImgSrc = `src/assets/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
     setImgSrc(resultImgSrc);
-  }
+  };
 
   return (
     <>
@@ -70,16 +77,23 @@ const Prefer = () => {
         {step !== 3 ? <StepNum>{step + 1}/3</StepNum> : ''}
 
         <ChooseContainer>
-          {step !== 3 ?
-           SONG_DATA[step].map((item, idx) => {
-            return (
-              <SelectBtn key={idx} name={idx} value={item} className={item == btnActive ? 'active' : ''} onClick={onClickTypeBtn}>
-                <H1>{item}</H1>
-              </SelectBtn>
-            );
-          }): 
-          <img src={imgSrc}></img>
-          }
+          {step !== 3 ? (
+            SONG_DATA[step].map((item, idx) => {
+              return (
+                <SelectBtn
+                  key={idx}
+                  name={idx}
+                  value={item}
+                  className={item == btnActive ? 'active' : ''}
+                  onClick={onClickTypeBtn}
+                >
+                  <H1>{item}</H1>
+                </SelectBtn>
+              );
+            })
+          ) : (
+            <img src={imgSrc}></img>
+          )}
         </ChooseContainer>
 
         <StepBtncontainer>
@@ -89,7 +103,9 @@ const Prefer = () => {
               다음으로
             </StepGoNextButton>
           ) : (
-            <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickResultBtn}>결과보기</StepGoNextButton>
+            <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickResultBtn}>
+              결과보기
+            </StepGoNextButton>
           )}
         </StepBtncontainer>
       </ContentWrapper>
