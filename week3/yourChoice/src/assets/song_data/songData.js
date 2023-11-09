@@ -1,3 +1,16 @@
+const CONTENT_HEADER = [
+  '지금 무슨 노래를 듣고싶어?',
+  '그럼 이 중에서는 뭐가 끌려?',
+  '마지막으로 선택해 줘!',
+  '오늘의 추천 플리는 바로!',
+];
+
+const SONG_DATA = [
+  ['인디/밴드', 'k-pop', '팝송'],
+  ['신나는', '잔잔한', '주인장 추천'],
+  ['여자', '남자', '상관없어!'],
+];
+
 const SONG_TITLE = [
   [
     ['제이레빗 happy things', '데이식스 한 페이지가 될 수 있게', 'LUCY 아니근데진짜'],
@@ -16,4 +29,4 @@ const SONG_TITLE = [
   ],
 ];
 
-export default SONG_TITLE;
+export { CONTENT_HEADER, SONG_DATA, SONG_TITLE };

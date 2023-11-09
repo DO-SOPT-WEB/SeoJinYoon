@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import ContentWrapper from '../UI/ContentWrapper';
-import SONG_TITLE from '../../assets/song_data/songData';
+import {SONG_TITLE} from '../../assets/song_data/songData';
 
 const Random = (props) => {
   const [timer, setTimer] = useState(3);
