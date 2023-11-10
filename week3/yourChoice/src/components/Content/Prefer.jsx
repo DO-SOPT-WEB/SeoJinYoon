@@ -18,20 +18,20 @@ const initialState = {
 const reducerFn = (state, action) => {
   switch (action.type) {
     case 'TYPE_CLICKED':
-      console.log('TYPE_CLICKED')
       return {
         ...state,
         goNextBtn: true,
         btnActive: action.btnActive,
         pickedArr: {...state.pickedArr, [state.step]: action.pickedArr},
       };
+
     case 'NEXT_BTN_CLICKED':
-      console.log('NEXT_BTN_CLICKED')
       return {
         ...state,
         step: state.step + 1,
         goNextBtn: action.goNextBtn,
       };
+
     case 'PREV_BTN_CLICKED':
       if (state.step === 0) {
         action.setGameHandler(false);
@@ -56,13 +56,14 @@ const reducerFn = (state, action) => {
 // 취향대로 content
 const Prefer = (props) => {
   const [gameState, dispatchGameState] = useReducer(reducerFn, initialState);
-  
+
   // 이미지 경로 매칭
   const [imgSrc, setImgSrc] = useState('');
 
   // 노래 제목 매칭
   const [songTitle, setSongTitle] = useState('');
 
+  // 타입 선택 버튼
   const onClickTypeBtn = (e) => {
     dispatchGameState({
       type: 'TYPE_CLICKED',
@@ -71,10 +72,12 @@ const Prefer = (props) => {
     });
   };
 
+  // 다음으로
   const onClickNextBtn = () => {
     dispatchGameState({ type: 'NEXT_BTN_CLICKED', goNextBtn: false });
   };
 
+  // 이전으로
   const onClickPrevBtn = () => {
     dispatchGameState({
       type: 'PREV_BTN_CLICKED',

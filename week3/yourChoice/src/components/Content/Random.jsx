@@ -43,7 +43,6 @@ const Random = (props) => {
 
     setRandomImgSrc(randomImgSrc);
     setRandomSongTitle(randomSongTitle);
-    console.log('1');
   }
 
   return (
