@@ -43,6 +43,9 @@ const Prefer = (props) => {
   };
 
   const onClickPrevBtn = () => {
+    if (step === 0) {
+      props.setGameHandler(false);
+    }
     setStep((prev) => (prev -= 1));
     setGoNextBtn(false);
   };
