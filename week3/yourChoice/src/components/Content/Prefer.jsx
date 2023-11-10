@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import styled from 'styled-components';
 
 import { CONTENT_HEADER, SONG_DATA, SONG_TITLE } from '../../assets/song_data/songData';
@@ -8,24 +8,55 @@ import ContentHeader from '../Layout/ContentHeader';
 import Result from '../Layout/Result';
 import H1 from '../UI/H1';
 
+const initialState = {
+  step: 0,
+  goNextBtn: false,
+  btnActive: '',
+  pickedArr: { 0: '', 1: '', 2: '' },
+};
+
+const reducerFn = (state, action) => {
+  switch (action.type) {
+    case 'TYPE_CLICKED':
+      console.log('TYPE_CLICKED')
+      return {
+        ...state,
+        goNextBtn: true,
+        btnActive: action.btnActive,
+        pickedArr: {...state.pickedArr, [state.step]: action.pickedArr},
+      };
+    case 'NEXT_BTN_CLICKED':
+      console.log('NEXT_BTN_CLICKED')
+      return {
+        ...state,
+        step: state.step + 1,
+        goNextBtn: action.goNextBtn,
+      };
+    case 'PREV_BTN_CLICKED':
+      if (state.step === 0) {
+        action.setGameHandler(false);
+        return { ...state };
+      } else {
+        return {
+          ...state,
+          btnActive: SONG_DATA[state.step - 1][state.pickedArr[state.step - 1]],
+          step: state.step - 1,
+          goNextBtn: true,
+        };
+      }
+
+    case 'RESULT_BTN_CLICKED':
+      return {
+        ...state,
+        step: state.step + 1,
+      };
+  }
+};
+
 // 취향대로 content
 const Prefer = (props) => {
-  // 단계 확인용
-  const [step, setStep] = useState(0);
-
-  // 다음으로 버튼 활성화
-  const [goNextBtn, setGoNextBtn] = useState(false);
-
-  // 선택 가능 버튼 중 어느 것이 눌렸는지 확인
-  const [btnActive, setBtnActive] = useState('');
-
-  // 어느 것이 눌렸는지 저장,
-  const [pickedArr, setPickedArr] = useState({
-    0: '',
-    1: '',
-    2: '',
-  });
-
+  const [gameState, dispatchGameState] = useReducer(reducerFn, initialState);
+  
   // 이미지 경로 매칭
   const [imgSrc, setImgSrc] = useState('');
 
@@ -33,38 +64,35 @@ const Prefer = (props) => {
   const [songTitle, setSongTitle] = useState('');
 
   const onClickTypeBtn = (e) => {
-    setBtnActive((prev) => e.target.value);
-    setGoNextBtn(true);
-    setPickedArr((prevPickedArr) => {
-      return { ...pickedArr, [step]: e.target.name };
+    dispatchGameState({
+      type: 'TYPE_CLICKED',
+      btnActive: e.target.value,
+      pickedArr: e.target.name
     });
   };
 
   const onClickNextBtn = () => {
-    setStep((prev) => (prev += 1));
-    setGoNextBtn(false);
+    dispatchGameState({ type: 'NEXT_BTN_CLICKED', goNextBtn: false });
   };
 
   const onClickPrevBtn = () => {
-    if (step === 0) {
-      props.setGameHandler(false);
-    }
-    setBtnActive((prev) => SONG_DATA[step - 1][pickedArr[step - 1]]);
-    setStep((prev) => (prev -= 1));
-    setGoNextBtn(true);
+    dispatchGameState({
+      type: 'PREV_BTN_CLICKED',
+      setGameHandler: props.setGameHandler
+    });
   };
 
   // 결과보기 버튼
   const onClickResultBtn = () => {
     let result = [];
 
-    for (const [key, value] of Object.entries(pickedArr)) {
+    for (const [key, value] of Object.entries(gameState.pickedArr)) {
       result.push(value);
     }
 
     let resultImgSrc = `src/assets/img/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
+    dispatchGameState({ type: 'RESULT_BTN_CLICKED' });
 
-    setStep((prev) => (prev += 1));
     setSongTitle(SONG_TITLE[result[0]][result[1]][result[2]]);
     setImgSrc(resultImgSrc);
   };
@@ -73,20 +101,20 @@ const Prefer = (props) => {
     <>
       <ContentWrapper>
         <ContentHeader>
-          <H1>{CONTENT_HEADER[step]}</H1>
+          <H1>{CONTENT_HEADER[gameState.step]}</H1>
         </ContentHeader>
 
-        {step !== 3 ? <StepNum>{step + 1}/3</StepNum> : ''}
+        {gameState.step !== 3 ? <StepNum>{gameState.step + 1}/3</StepNum> : ''}
 
         <ChooseContainer>
-          {step !== 3 ? (
-            SONG_DATA[step].map((item, idx) => {
+          {gameState.step !== 3 ? (
+            SONG_DATA[gameState.step].map((item, idx) => {
               return (
                 <SelectBtn
                   key={idx}
                   name={idx}
                   value={item}
-                  className={item == btnActive ? 'active' : ''}
+                  className={item == gameState.btnActive ? 'active' : ''}
                   onClick={onClickTypeBtn}
                 >
                   <H1>{item}</H1>
@@ -98,15 +126,15 @@ const Prefer = (props) => {
           )}
         </ChooseContainer>
 
-        {step !== 3 ? (
+        {gameState.step !== 3 ? (
           <StepBtncontainer>
             <StepGoBackButton onClick={onClickPrevBtn}>이전으로</StepGoBackButton>
-            {step !== 2 ? (
-              <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickNextBtn}>
+            {gameState.step !== 2 ? (
+              <StepGoNextButton $goNextActive={gameState.goNextBtn} onClick={onClickNextBtn}>
                 다음으로
               </StepGoNextButton>
             ) : (
-              <StepGoNextButton $goNextActive={goNextBtn} onClick={onClickResultBtn}>
+              <StepGoNextButton $goNextActive={gameState.goNextBtn} onClick={onClickResultBtn}>
                 결과보기
               </StepGoNextButton>
             )}
@@ -179,7 +207,7 @@ const StepGoNextButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: ${({ $goNextActive, theme }) => ($goNextActive ? theme.colors.skyBlue : theme.colors.gray)};
+  background-color: ${({  $goNextActive, theme }) => ($goNextActive ? theme.colors.skyBlue : theme.colors.gray)};
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
