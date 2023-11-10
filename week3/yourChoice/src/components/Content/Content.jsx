@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import ContentWrapper from '../UI/ContentWrapper';
-import ContentHeader from '../UI/ContentHeader';
+import { ChooseContainer } from './style/ContentStyles';
+import ContentWrapper from '../Layout/ContentWrapper';
+import ContentHeader from '../Layout/ContentHeader';
 import H1 from '../UI/H1';
 import ChooseBtn from '../UI/ChooseBtn';
 import Button from '../UI/Button';
-import Prefer from '../Prefer/Prefer';
+import Prefer from './Prefer';
 
 // 전체 content div
 const Content = (props) => {
@@ -52,17 +53,6 @@ const Content = (props) => {
 };
 
 export default Content;
-
-const ChooseContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 20rem;
-  margin: 3rem 0;
-`;
 
 const SelectedContent = styled.div`
   display: ${(props) => (props.$selectedContent === '' ? 'none' : 'flex')};

@@ -2,8 +2,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { CONTENT_HEADER, SONG_DATA, SONG_TITLE } from '../../assets/song_data/songData';
-import ContentWrapper from '../UI/ContentWrapper';
-import ContentHeader from '../UI/ContentHeader';
+import { ChooseContainer, StepBtncontainer, ToStartButton } from './style/ContentStyles';
+import ContentWrapper from '../Layout/ContentWrapper';
+import ContentHeader from '../Layout/ContentHeader';
+import Result from '../Layout/Result';
 import H1 from '../UI/H1';
 
 const Prefer = (props) => {
@@ -46,22 +48,22 @@ const Prefer = (props) => {
     if (step === 0) {
       props.setGameHandler(false);
     }
-    setBtnActive((prev) => SONG_DATA[step-1][pickedArr[step-1]]);
+    setBtnActive((prev) => SONG_DATA[step - 1][pickedArr[step - 1]]);
     setStep((prev) => (prev -= 1));
     setGoNextBtn(true);
   };
 
-console.log(pickedArr);
-
   // 결과보기 버튼
   const onClickResultBtn = () => {
     let result = [];
-    setStep((prev) => (prev += 1));
+
     for (const [key, value] of Object.entries(pickedArr)) {
       result.push(value);
     }
+
     let resultImgSrc = `src/assets/img/p${result[0]}_${result[1]}_${result[2]}.jpeg`;
 
+    setStep((prev) => (prev += 1));
     setSongTitle(SONG_TITLE[result[0]][result[1]][result[2]]);
     setImgSrc(resultImgSrc);
   };
@@ -91,12 +93,7 @@ console.log(pickedArr);
               );
             })
           ) : (
-            <ResultContainer>
-              <img src={imgSrc} />
-              <ResultTitle>
-                <h2>{songTitle}</h2>
-              </ResultTitle>
-            </ResultContainer>
+            <Result imgSrc={imgSrc} songTitle={songTitle} />
           )}
         </ChooseContainer>
 
@@ -137,17 +134,6 @@ const StepNum = styled.div`
   right: 9rem;
 `;
 
-const ChooseContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 20rem;
-  margin: 2.5rem 0 0.5rem 0;
-`;
-
 const SelectBtn = styled.button`
   display: flex;
   justify-content: center;
@@ -167,46 +153,6 @@ const SelectBtn = styled.button`
   &.active {
     background-color: ${({ theme }) => theme.colors.boldPink};
   }
-`;
-
-const ResultContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  gap: 2rem;
-  height: 20rem;
-  width: 100%;
-`;
-
-const ResultImg = styled.img`
-  width: 50%;
-`;
-
-const ResultTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3px solid ${({ theme }) => theme.colors.boldPink};
-
-  width: 50%;
-  height: 3rem;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 2rem;
-
-  font-size: 25px;
-`;
-
-const StepBtncontainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-
-  margin: 1rem 0;
-  width: 100%;
 `;
 
 const StepGoBackButton = styled.button`
@@ -232,7 +178,7 @@ const StepGoNextButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: ${( {$goNextActive, theme} ) => ($goNextActive ? theme.colors.skyBlue : theme.colors.gray)};
+  background-color: ${({ $goNextActive, theme }) => ($goNextActive ? theme.colors.skyBlue : theme.colors.gray)};
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
@@ -241,20 +187,4 @@ const StepGoNextButton = styled.button`
 
   cursor: ${(props) => (props.$goNextActive ? 'pointer' : '')};
   pointer-events: ${(props) => (props.$goNextActive ? '' : 'none')};
-`;
-
-const ToStartButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 0.5rem 1.5rem;
-
-  background-color: ${({ theme }) => theme.colors.skyBlue};
-  border: 1px solid ${({ theme }) => theme.colors.gray};
-  border-radius: 0.5rem;
-
-  font-family: ${({ theme }) => theme.font.fontFamily};
-  font-size: 18px;
-  cursor: pointer;
 `;

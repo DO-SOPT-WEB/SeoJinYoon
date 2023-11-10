@@ -8,7 +8,7 @@ const ContentWrapper = (props) => {
     )
 }
 
-const Div = styled.div`
+const Div = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: center;
