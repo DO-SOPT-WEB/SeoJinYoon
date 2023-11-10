@@ -6,6 +6,7 @@ import { SONG_TITLE } from '../../assets/song_data/songData';
 import Result from '../Layout/Result';
 import { StepBtncontainer, ToStartButton } from './style/ContentStyles';
 
+// 랜덤 content
 const Random = (props) => {
   const [timer, setTimer] = useState(3);
   const [randomImgSrc, setRandomImgSrc] = useState('');
@@ -15,13 +16,20 @@ const Random = (props) => {
     const count = setInterval(() => {
       setTimer((timer) => timer - 1);
     }, 1000);
+
     if (timer === 0) {
       clearInterval(count);
     }
+
     return () => {
-      randomSong();
       clearInterval(count);
     };
+  }, [timer]);
+
+  useEffect(() => {
+    if (timer === 0) {
+      randomSong();
+    }
   }, [timer]);
 
   function randomSong() {
@@ -35,6 +43,7 @@ const Random = (props) => {
 
     setRandomImgSrc(randomImgSrc);
     setRandomSongTitle(randomSongTitle);
+    console.log('1');
   }
 
   return (

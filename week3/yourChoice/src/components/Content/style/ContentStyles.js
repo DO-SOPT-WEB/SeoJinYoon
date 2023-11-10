@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+// content 공통 스타일 컴포넌트 분리
+
 // 카테고리 선택 버튼 컨테이너
-const ChooseContainer = styled.div`
+const ChooseContainer = styled.section`
   display: flex;
   flex-direction: row;
   gap: 2rem;
@@ -13,7 +15,7 @@ const ChooseContainer = styled.div`
 `;
 
 // 이전으로, 다음으로 컨테이너
-const StepBtncontainer = styled.div`
+const StepBtncontainer = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -41,4 +43,4 @@ const ToStartButton = styled.button`
   cursor: pointer;
 `;
 
-export {ChooseContainer, StepBtncontainer, ResultTitle, ResultContainer, ToStartButton};
+export {ChooseContainer, StepBtncontainer, ToStartButton};

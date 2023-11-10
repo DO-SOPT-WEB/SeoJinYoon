@@ -8,6 +8,7 @@ import ContentHeader from '../Layout/ContentHeader';
 import Result from '../Layout/Result';
 import H1 from '../UI/H1';
 
+// 취향대로 content
 const Prefer = (props) => {
   // 단계 확인용
   const [step, setStep] = useState(0);
