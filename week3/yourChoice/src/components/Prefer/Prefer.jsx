@@ -220,6 +220,7 @@ const StepGoBackButton = styled.button`
   border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
+  font-family: ${({ theme }) => theme.font.fontFamily};
   font-size: 18px;
   cursor: pointer;
 `;
@@ -236,6 +237,8 @@ const StepGoNextButton = styled.button`
   border-radius: 0.5rem;
 
   font-size: 18px;
+  font-family: ${({ theme }) => theme.font.fontFamily};
+
   cursor: ${(props) => (props.$goNextActive ? 'pointer' : '')};
   pointer-events: ${(props) => (props.$goNextActive ? '' : 'none')};
 `;
