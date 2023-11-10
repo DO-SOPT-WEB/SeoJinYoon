@@ -8,7 +8,7 @@ const Nav = (props) => {
   return (
     <>
       <NavHeader>
-        <H1>오늘의 플리</H1>
+        <H1>🎧 오늘의 플리 🎧</H1>
         {props.isStart !== '' && (
           <NavButton
             onClick={() => {

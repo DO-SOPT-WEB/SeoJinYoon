@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import ContentWrapper from '../UI/ContentWrapper';
-import {SONG_TITLE} from '../../assets/song_data/songData';
+import { SONG_TITLE } from '../../assets/song_data/songData';
 
 const Random = (props) => {
   const [timer, setTimer] = useState(3);
@@ -38,11 +38,11 @@ const Random = (props) => {
   return (
     <ContentWrapper>
       {timer !== 0 ? (
-        timer
+        <AnimateH1>{timer}</AnimateH1>
       ) : (
         <>
           <ResultContainer>
-            <img src={randomImgSrc}/>
+            <img src={randomImgSrc} />
             <ResultTitle>
               <h2>{randomSongTitle}</h2>
             </ResultTitle>
@@ -64,6 +64,36 @@ const Random = (props) => {
 };
 
 export default Random;
+
+const flicker = keyframes`
+    0%, 100% {
+      text-shadow: 
+        0 0 1vw #1041FF, 
+        0 0 3vw #1041FF, 
+        0 0 10vw #1041FF, 
+        0 0 10vw #1041FF, 
+        0 0 .4vw #8BFDFE, 
+        .5vw .5vw .1vw #147280;
+      color: #28D7FE;
+    }
+    50% {
+      text-shadow: 
+        0 0 .5vw #082180, 
+        0 0 1.5vw #082180, 
+        0 0 5vw #082180, 
+        0 0 5vw #082180, 
+        0 0 .2vw #082180, 
+        .5vw .5vw .1vw #0A3940;
+      color: #146C80;
+    }
+  }
+`
+
+const AnimateH1 = styled.h1`
+  animation: ${flicker} 1s linear infinite;
+  color: green;
+  font-size: 100px;
+`;
 
 const ResultContainer = styled.div`
   display: flex;
