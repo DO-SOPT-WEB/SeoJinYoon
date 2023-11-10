@@ -46,9 +46,12 @@ const Prefer = (props) => {
     if (step === 0) {
       props.setGameHandler(false);
     }
+    setBtnActive((prev) => SONG_DATA[step-1][pickedArr[step-1]]);
     setStep((prev) => (prev -= 1));
-    setGoNextBtn(false);
+    setGoNextBtn(true);
   };
+
+console.log(pickedArr);
 
   // 결과보기 버튼
   const onClickResultBtn = () => {
