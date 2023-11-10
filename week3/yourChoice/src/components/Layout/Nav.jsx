@@ -34,7 +34,7 @@ const NavHeader = styled.nav`
 
   padding: 2rem;
 
-  background-color: #fdedec;
+  background-color: ${({ theme }) => theme.colors.babyPink};
 `;
 
 const NavButton = styled.button`
@@ -43,10 +43,11 @@ const NavButton = styled.button`
   right: 4rem;
   padding: 1rem 1.5rem;
 
-  background-color: #F5F5F5;
-  border: 1px solid gray;
+  background-color: ${({ theme }) => theme.colors.skyBlue};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
   font-size: 18px;
+  font-family: ${({ theme }) => theme.font.fontFamily};
   cursor: pointer;
 `;

@@ -19,11 +19,10 @@ const Button = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: ${props => props.goNextActive ? 'lightblue' : 'gray'};
+  background-color: ${({ $props, theme }) => ($props.goNextActive ? theme.colors.skyBlue : theme.color.gray)};
   border: 1px solid gray;
   border-radius: 0.5rem;
 
   font-size: 18px;
-  cursor: ${props => props.goNextActive ? 'pointer' : ''};
-  
+  cursor: ${(props) => (props.goNextActive ? 'pointer' : '')};
 `;

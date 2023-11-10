@@ -151,15 +151,15 @@ const SelectBtn = styled.button`
   height: 18rem;
   padding: 2rem;
   border-radius: 1.5rem;
-  border: 1px solid gray;
-  background-color: white;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  background-color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
 
   &:hover {
-    border: 3px solid gray;
+    border: 3px solid ${({ theme }) => theme.colors.gray};
   }
   &.active {
-    background-color: pink;
+    background-color: ${({ theme }) => theme.colors.boldPink};
   }
 `;
 
@@ -182,11 +182,14 @@ const ResultTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 3px solid ${({ theme }) => theme.colors.boldPink};
 
-  width: 40%;
+  width: 50%;
   height: 3rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 2rem;
+
+  font-size: 25px;
 `;
 
 const StepBtncontainer = styled.div`
@@ -207,8 +210,8 @@ const StepGoBackButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: lightblue;
-  border: 1px solid gray;
+  background-color: ${({ theme }) => theme.colors.skyBlue};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
   font-size: 18px;
@@ -222,8 +225,8 @@ const StepGoNextButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: ${(props) => (props.$goNextActive ? 'lightblue' : 'gray')};
-  border: 1px solid gray;
+  background-color: ${( {$goNextActive, theme} ) => ($goNextActive ? theme.colors.skyBlue : theme.colors.gray)};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
   font-size: 18px;
@@ -238,10 +241,11 @@ const ToStartButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: lightblue;
-  border: 1px solid gray;
+  background-color: ${({ theme }) => theme.colors.skyBlue};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   border-radius: 0.5rem;
 
+  font-family: ${({ theme }) => theme.font.fontFamily};
   font-size: 18px;
   cursor: pointer;
 `;

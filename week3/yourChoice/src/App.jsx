@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+
+import styled, {ThemeProvider} from 'styled-components';
+import GlobalStyle from './style/GlobalStyle';
+import theme from './style/theme';
+
 import Nav from './components/Layout/Nav';
 import Content from './components/Layout/Content';
 import Prefer from './components/Prefer/Prefer';
@@ -12,7 +17,8 @@ function App() {
   const [gameStart, setGameStart] = useState(false);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <Nav
         isStart={isStart}
         isStartHandler={(startContent) => {
@@ -50,7 +56,7 @@ function App() {
           }}
         />
       )}
-    </>
+    </ThemeProvider>
   );
 }
 

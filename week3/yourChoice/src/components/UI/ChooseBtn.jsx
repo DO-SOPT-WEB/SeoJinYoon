@@ -20,8 +20,9 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
 
+  
   &:hover {
-    background-color: pink;
+    background-color: ${({ theme }) => theme.colors.boldPink};;
   }
 `;
 

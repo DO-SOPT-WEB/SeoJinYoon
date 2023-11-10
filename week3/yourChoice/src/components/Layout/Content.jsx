@@ -74,6 +74,6 @@ const SelectedContent = styled.div`
   padding: 2rem;
   margin: 3rem 0 2rem 0;
   border-radius: 1.5rem;
-  border: 1px solid gray;
-  background-color: white;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  background-color: ${({ theme }) => theme.colors.white};
 `;

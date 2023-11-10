@@ -19,10 +19,11 @@ const ElButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.colors.skyBlue};
   border: 1px solid gray;
   border-radius: 0.5rem;
 
   font-size: 18px;
+  font-family: ${({ theme }) => theme.font.fontFamily};
   cursor: pointer;
 `;

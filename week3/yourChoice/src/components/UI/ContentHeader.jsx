@@ -18,7 +18,7 @@ const Header = styled.header`
 
     border-radius: 0.5rem;
 
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.white};
     font-size : 30px;
 `
 

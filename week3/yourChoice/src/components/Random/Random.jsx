@@ -67,31 +67,30 @@ export default Random;
 
 const flicker = keyframes`
     0%, 100% {
-      text-shadow: 
-        0 0 1vw #1041FF, 
-        0 0 3vw #1041FF, 
-        0 0 10vw #1041FF, 
-        0 0 10vw #1041FF, 
-        0 0 .4vw #8BFDFE, 
+      text-shadow:
+        0 0 1vw #1041FF,
+        0 0 3vw #1041FF,
+        0 0 10vw #1041FF,
+        0 0 10vw #1041FF,
+        0 0 .4vw #8BFDFE,
         .5vw .5vw .1vw #147280;
       color: #28D7FE;
     }
     50% {
-      text-shadow: 
-        0 0 .5vw #082180, 
-        0 0 1.5vw #082180, 
-        0 0 5vw #082180, 
-        0 0 5vw #082180, 
-        0 0 .2vw #082180, 
+      text-shadow:
+        0 0 .5vw #082180,
+        0 0 1.5vw #082180,
+        0 0 5vw #082180,
+        0 0 5vw #082180,
+        0 0 .2vw #082180,
         .5vw .5vw .1vw #0A3940;
       color: #146C80;
     }
   }
-`
+`;
 
 const AnimateH1 = styled.h1`
   animation: ${flicker} 1s linear infinite;
-  color: green;
   font-size: 100px;
 `;
 
@@ -110,11 +109,14 @@ const ResultTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 3px solid ${({ theme }) => theme.colors.boldPink};
 
-  width: 40%;
+  width: 50%;
   height: 3rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 2rem;
+
+  font-size: 25px;
 `;
 
 const StepBtncontainer = styled.div`
@@ -135,10 +137,11 @@ const ToStartButton = styled.button`
 
   padding: 0.5rem 1.5rem;
 
-  background-color: lightblue;
-  border: 1px solid gray;
+  background-color: ${({ theme }) => theme.colors.skyBlue};
+  border: 1px solid ${({ theme }) => theme.colors.gray};;
   border-radius: 0.5rem;
 
+  font-family: ${({ theme }) => theme.font.fontFamily};
   font-size: 18px;
   cursor: pointer;
 `;

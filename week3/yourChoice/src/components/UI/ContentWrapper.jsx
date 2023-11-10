@@ -20,7 +20,7 @@ const Div = styled.div`
     margin: 4rem 10rem;
     border-radius: 0.5rem;
     
-    background-color: #FDEDEC;
+    background-color: ${({ theme }) => theme.colors.babyPink};
 `
 
 export default ContentWrapper;
