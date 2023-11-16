@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ContentWrapper = (props, {children}) => {
     return (
-        <Wrapper>
+        <Wrapper onSubmit={props.onSubmit}>
             <Header>{props.header}</Header>
             {props.children}
         </Wrapper>

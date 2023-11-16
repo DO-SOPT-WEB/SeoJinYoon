@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useEffect} from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useState, useReducer, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -52,20 +52,20 @@ const Signup = () => {
   // 회원가입 버튼 활성화
   const [signupValid, setSignupValid] = useState(false);
 
-
   useEffect(() => {
     const idValid = !isExist && isClickedExistBtn && inputVal.username.length !== 0;
-    const passwordValid = inputVal.password.length !== 0 && (inputVal.password === inputVal.passwordCheck);
+    const passwordValid = inputVal.password.length !== 0 && inputVal.password === inputVal.passwordCheck;
     const nicknameValid = inputVal.nickname.length !== 0;
+
     setSignupValid((prev) => {
       if (idValid && passwordValid && nicknameValid) {
         return true;
       } else {
         return false;
       }
-    })
-  }, [isClickedExistBtn, signupValid, isExist, inputVal.password, inputVal.passwordCheck])
- 
+    });
+  }, [isClickedExistBtn, signupValid, isExist, inputVal.password, inputVal.passwordCheck]);
+
   // input의 필드별 입력값 저장
   const onChangeHandler = (e) => {
     if (isClickedExistBtn && e.target.name === 'ID') {
@@ -102,8 +102,33 @@ const Signup = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const onSignupSubmit = async (e) => {
+    console.log(inputVal.password);
+    e.preventDefault();
+    try {
+      const response = await API.post(
+        `/api/v1/members`,
+        {
+          username: `${inputVal.username}`,
+          nickname: `${inputVal.nickname}`,
+          password: `${inputVal.password}`,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response);
+      navigate('/login');
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <ContentWrapper header={'회원가입'}>
+    <ContentWrapper header={'회원가입'} onSubmit={onSignupSubmit}>
       <InputWrapper>
         {SIGNUP_LABEL.map((label, idx) => (
           <Input
