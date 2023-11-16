@@ -1,4 +1,4 @@
-import react from 'React';
+import React from 'react';
 import styled from 'styled-components';
 
 const ContentWrapper = (props, {children}) => {
@@ -19,8 +19,8 @@ const Wrapper = styled.main`
   align-items: center;
   gap: 2rem;
 
-  width: 15rem;
-  padding: 3rem;
+  width: 30rem;
+  padding: 3rem 2rem;
 
   border: 1px solid ${({theme}) => theme.colors.gray};
   border-radius: 1rem;
