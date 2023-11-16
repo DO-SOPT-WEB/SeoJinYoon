@@ -11,9 +11,8 @@ import InputWrapper from '../Layout/InputWrapper';
 import BtnWrapper from '../Layout/BtnWrapper';
 import Input from '../UI/Input';
 
-
 const initialState = {
-  username: "",
+  username: '',
   nickname: '',
   password: '',
   passwordCheck: '',
@@ -44,20 +43,35 @@ const reducerFn = (state, action) => {
   }
 };
 
-
 const Signup = () => {
   const userNameRef = useRef();
 
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
+  // 아이디 중복여부 bool
   const [isExist, setIsExist] = useState(false);
+  // 중복 버튼 색 변경, 리셋용
   const [isClickedExistBtn, setIsClickedExistBtn] = useState(false);
+  // 회원가입 버튼 활성화
+  const [signupValid, setSignupValid] = useState(false);
 
   const onChangeHandler = (e) => {
     if (isClickedExistBtn && e.target.name === 'ID') {
-      setIsClickedExistBtn(prev => !prev);
+      setIsClickedExistBtn((prev) => !prev);
       dispatch({ type: e.target.name, value: e.target.value });
     } else {
       dispatch({ type: e.target.name, value: e.target.value });
+    }
+    if (e.target.name === '비밀번호 확인') {
+      passwordCheckHandler(e);
+    }
+  };
+
+  const passwordCheckHandler = (e) => {
+    const passwordCheckVal = e.target.value;
+    if (passwordCheckVal === inputVal.password) {
+      setSignupValid(true);
+    } else {
+      setSignupValid(false);
     }
   };
 
@@ -84,11 +98,10 @@ const Signup = () => {
       } else {
         setIsClickedExistBtn(true);
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error.message);
     }
-  }
-
+  };
 
   return (
     <ContentWrapper header={'회원가입'}>
@@ -102,14 +115,16 @@ const Signup = () => {
             onChange={onChangeHandler}
             onClick={onClickDuplicateBtn}
             refVal={idx === 0 ? userNameRef : null}
-            isDuplicate = {isExist}
-            btnClicked= {isClickedExistBtn}
+            isDuplicate={isExist}
+            btnClicked={isClickedExistBtn}
           />
         ))}
       </InputWrapper>
 
       <BtnWrapper>
-        <SignupBtn type="submit">회원가입</SignupBtn>
+        <SignupBtn type="submit" disabled={!signupValid ? true : false} $valid={signupValid}>
+          회원가입
+        </SignupBtn>
       </BtnWrapper>
     </ContentWrapper>
   );
@@ -127,6 +142,6 @@ const SignupBtn = styled.button`
 
   font-size: 17px;
   font-weight: bold;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ $valid, theme }) => ($valid ? theme.colors.green : theme.colors.gray)};
   color: ${({ theme }) => theme.colors.white};
 `;
