@@ -66,7 +66,7 @@ const Login = () => {
         username: userInfo.username,
         nickname: userInfo.nickname,
       })
-      navigate(`/mypage/:${authContext.id}`)
+      navigate(`/mypage/:${userInfo.id}`)
     } catch (error) {
       console.log(error.message);
     }

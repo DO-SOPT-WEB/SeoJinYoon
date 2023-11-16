@@ -16,7 +16,7 @@ export const AuthContextProvider = (props) => {
 
   const contextValue = {
     ...authData,
-    setAuthData: (newAuthData) => setAuthData(newAuthData),
+    setAuthData: (newAuthData) => setAuthData(prev => newAuthData),
   };
 
   return <AuthContext.Provider value={contextValue}>{props.children}</AuthContext.Provider>;

@@ -1,3 +1,5 @@
+
+
 const SIGNUP_LABEL = ['ID', '비밀번호', '비밀번호 확인', '닉네임'];
 
 const SIGNUP_PLACEHOLDER = [
