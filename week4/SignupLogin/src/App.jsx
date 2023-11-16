@@ -6,6 +6,7 @@ import theme from './style/theme';
 import ContentWrapper from './components/Layout/ContentWrapper';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import MyPage from './components/MyPage';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
           {/* <Login /> */}
-          <Signup />
+          {/* <Signup /> */}
+          <MyPage />
       </ThemeProvider>
     </>
   );
