@@ -12,7 +12,7 @@ export default InputWrapper;
 const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 
     width: 100%;
     margin-top: 1rem;

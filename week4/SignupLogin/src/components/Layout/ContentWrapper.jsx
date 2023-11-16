@@ -12,7 +12,7 @@ const ContentWrapper = (props, {children}) => {
 
 export default ContentWrapper;
 
-const Wrapper = styled.main`
+const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
