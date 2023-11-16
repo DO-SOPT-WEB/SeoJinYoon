@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ContentWrapper from './Layout/ContentWrapper';
-import InputWrapper from './Layout/InputWrapper';
-import BtnWrapper from './Layout/BtnWrapper';
-import Input from './UI/Input';
+import ContentWrapper from '../Layout/ContentWrapper';
+import InputWrapper from '../Layout/InputWrapper';
+import BtnWrapper from '../Layout/BtnWrapper';
+import Input from '../UI/Input';
 
 const Login = () => {
   const LOGIN_LABEL = ['ID', 'PASSWORD'];

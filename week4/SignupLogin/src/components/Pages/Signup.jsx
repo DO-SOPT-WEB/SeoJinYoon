@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ContentWrapper from './Layout/ContentWrapper';
-import InputWrapper from './Layout/InputWrapper';
-import BtnWrapper from './Layout/BtnWrapper';
-import Input from './UI/Input';
+import ContentWrapper from '../Layout/ContentWrapper';
+import InputWrapper from '../Layout/InputWrapper';
+import BtnWrapper from '../Layout/BtnWrapper';
+import Input from '../UI/Input';
 
 const Signup = () => {
   const Signup_LABEL = ['ID', '비밀번호', '비밀번호 확인', '닉네임'];
@@ -24,7 +24,7 @@ const Signup = () => {
       </InputWrapper>
 
       <BtnWrapper>
-        <SignupBtn type="button">회원가입</SignupBtn>
+        <SignupBtn type="submit">회원가입</SignupBtn>
       </BtnWrapper>
     </ContentWrapper>
   );
