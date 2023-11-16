@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 
 const Input = (props) => {
   return (
     <InputDiv>
       <InputLabel>{props.label}</InputLabel>
-      <UserInput type="text" placeholder={props.placeholder} content={props.content}></UserInput>
-      {props.content === '중복체크' && <IsExistIdBtn>{props.content}</IsExistIdBtn>}
+      <UserInput
+        type="text"
+        name={props.label}
+        placeholder={props.placeholder}
+        content={props.content}
+        onChange={props.onChange}
+        ref={props.refVal}
+      ></UserInput>
+      {props.content === '중복체크' && <IsExistIdBtn onClick={props.onClick}>{props.content}</IsExistIdBtn>}
     </InputDiv>
   );
 };
@@ -31,7 +38,7 @@ const InputLabel = styled.label`
 const UserInput = styled.input`
   display: flex;
   align-items: center;
-  ${(props) => props.content === '중복체크' ? `width: 50%` : `width: 75%`};
+  ${(props) => (props.content === '중복체크' ? `width: 50%` : `width: 75%`)};
   height: 3rem;
   border: 1px solid ${({ theme }) => theme.colors.gray};
   padding: 10px;

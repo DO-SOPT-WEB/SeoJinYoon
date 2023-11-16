@@ -1,25 +1,101 @@
-import React from 'react';
+import React, { useState, useReducer, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+
+import API from '../../api';
+import { SIGNUP_LABEL, SIGNUP_PLACEHOLDER } from '../../assets/constants/constants';
 
 import ContentWrapper from '../Layout/ContentWrapper';
 import InputWrapper from '../Layout/InputWrapper';
 import BtnWrapper from '../Layout/BtnWrapper';
 import Input from '../UI/Input';
 
+
+const initialState = {
+  username: "",
+  nickname: '',
+  password: '',
+  passwordCheck: '',
+};
+
+const reducerFn = (state, action) => {
+  switch (action.type) {
+    case 'ID':
+      return {
+        ...state,
+        username: action.value,
+      };
+    case '비밀번호':
+      return {
+        ...state,
+        password: action.value,
+      };
+    case '비밀번호 확인':
+      return {
+        ...state,
+        passwordCheck: action.value,
+      };
+    case '닉네임':
+      return {
+        ...state,
+        nickname: action.value,
+      };
+  }
+};
+
+
 const Signup = () => {
-  const Signup_LABEL = ['ID', '비밀번호', '비밀번호 확인', '닉네임'];
-  const Signup_PLACEHOLDER = [
-    '아이디를 입력해주세요',
-    '비밀번호를 입력해주세요',
-    '비밀번호를 다시 한 번 입력해주세요',
-    '닉네임을 입력해주세요',
-  ];
+  const userNameRef = useRef();
+
+  const [inputVal, dispatch] = useReducer(reducerFn, initialState);
+  const [isExist, setIsExist] = useState(false);
+
+  const onChangeHandler = (e) => {
+    dispatch({ type: e.target.name, value: e.target.value });
+  };
+
+  // 중복 확인 버튼
+  // Get 요청 결과를 isExist state에 업데이트
+  // 중복된 값일 경우 useRef로 접근하여 input값 초기화
+  const onClickDuplicateBtn = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await API.get(`/api/v1/members/check`, {
+        params: {
+          username: `${inputVal.username}`,
+        },
+      });
+      const data = response.data;
+
+      setIsExist(data.isExist);
+
+      if (data.isExist) {
+        console.log('이미 사용 중인 아이디입니다.');
+        userNameRef.current.value = '';
+      } else {
+        
+      }
+    } catch(error) {
+      console.log(error.message);
+    }
+  }
+
 
   return (
     <ContentWrapper header={'회원가입'}>
       <InputWrapper>
-        {Signup_LABEL.map((label, idx) => (
-          <Input key={idx} label={label} content={idx === 0 ? '중복체크' : ''} placeholder={Signup_PLACEHOLDER[idx]} />
+        {SIGNUP_LABEL.map((label, idx) => (
+          <Input
+            key={idx}
+            label={label}
+            content={idx === 0 ? '중복체크' : ''}
+            placeholder={SIGNUP_PLACEHOLDER[idx]}
+            onChange={onChangeHandler}
+            onClick={onClickDuplicateBtn}
+            refVal={idx === 0 ? userNameRef : null}
+          />
         ))}
       </InputWrapper>
 
