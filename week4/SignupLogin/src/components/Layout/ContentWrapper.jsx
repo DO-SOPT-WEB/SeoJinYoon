@@ -19,7 +19,7 @@ const Wrapper = styled.form`
   align-items: center;
   gap: 2rem;
 
-  width: 30rem;
+  width: 34rem;
   padding: 3rem 2rem;
 
   border: 1px solid ${({theme}) => theme.colors.gray};

@@ -5,7 +5,8 @@ const Input = (props) => {
   return (
     <InputDiv>
       <InputLabel>{props.label}</InputLabel>
-      <UserInput type="text" placeholder={props.placeholder}></UserInput>
+      <UserInput type="text" placeholder={props.placeholder} content={props.content}></UserInput>
+      {props.content === '중복체크' && <IsExistIdBtn>{props.content}</IsExistIdBtn>}
     </InputDiv>
   );
 };
@@ -30,7 +31,7 @@ const InputLabel = styled.label`
 const UserInput = styled.input`
   display: flex;
   align-items: center;
-  width: 75%;
+  ${(props) => props.content === '중복체크' ? `width: 50%` : `width: 75%`};
   height: 3rem;
   border: 1px solid ${({ theme }) => theme.colors.gray};
   padding: 10px;
@@ -43,4 +44,13 @@ const UserInput = styled.input`
   &:focus {
     border: 1px solid ${({ theme }) => theme.colors.black};
   }
+`;
+
+const IsExistIdBtn = styled.button`
+  width: 20%;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: ${({ theme }) => theme.colors.green};
+  color: ${({ theme }) => theme.colors.white};
 `;
