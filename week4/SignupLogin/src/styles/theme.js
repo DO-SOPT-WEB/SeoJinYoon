@@ -4,6 +4,7 @@ const colors = {
     gray: '#E4E4DD',
     black: '#000000',
     green: '#2DB400',
+    red: '#FF0B00',
 };
 
 const font = {

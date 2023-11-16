@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 const Input = (props) => {
@@ -13,7 +13,11 @@ const Input = (props) => {
         onChange={props.onChange}
         ref={props.refVal}
       ></UserInput>
-      {props.content === '중복체크' && <IsExistIdBtn onClick={props.onClick}>{props.content}</IsExistIdBtn>}
+      {props.content === '중복체크' && (
+        <IsExistIdBtn onClick={props.onClick} $isDuplicate={props.isDuplicate} $isBtnClicked={props.btnClicked}>
+          {props.content}
+        </IsExistIdBtn>
+      )}
     </InputDiv>
   );
 };
@@ -58,6 +62,9 @@ const IsExistIdBtn = styled.button`
   padding: 12px;
   font-size: 15px;
   font-weight: bold;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ $isBtnClicked, $isDuplicate, theme }) =>
+    !$isBtnClicked ? 
+        theme.colors.black : 
+        ($isDuplicate ? theme.colors.red : theme.colors.green)};
   color: ${({ theme }) => theme.colors.white};
 `;

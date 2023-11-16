@@ -50,6 +50,7 @@ const Signup = () => {
 
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
   const [isExist, setIsExist] = useState(false);
+  const [isClickedExistBtn, setIsClickedExistBtn] = useState(false);
 
   const onChangeHandler = (e) => {
     dispatch({ type: e.target.name, value: e.target.value });
@@ -72,10 +73,11 @@ const Signup = () => {
       setIsExist(data.isExist);
 
       if (data.isExist) {
+        setIsClickedExistBtn(true);
         console.log('이미 사용 중인 아이디입니다.');
         userNameRef.current.value = '';
       } else {
-        
+        setIsClickedExistBtn(true);
       }
     } catch(error) {
       console.log(error.message);
@@ -95,6 +97,8 @@ const Signup = () => {
             onChange={onChangeHandler}
             onClick={onClickDuplicateBtn}
             refVal={idx === 0 ? userNameRef : null}
+            isDuplicate = {isExist}
+            btnClicked= {isClickedExistBtn}
           />
         ))}
       </InputWrapper>
