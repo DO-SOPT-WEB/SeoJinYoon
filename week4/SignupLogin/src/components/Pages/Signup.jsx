@@ -53,41 +53,20 @@ const Signup = () => {
   const [signupValid, setSignupValid] = useState(false);
 
 
-  // 중복체크 하지 않은 경우 비활성화
   useEffect(() => {
-    console.log(isClickedExistBtn);
-    setSignupValid((prev)=>{
-      if(isClickedExistBtn) {
+    const idValid = !isExist && isClickedExistBtn && inputVal.username.length !== 0;
+    const passwordValid = inputVal.password.length !== 0 && (inputVal.password === inputVal.passwordCheck);
+    const nicknameValid = inputVal.nickname.length !== 0;
+    setSignupValid((prev) => {
+      if (idValid && passwordValid && nicknameValid) {
         return true;
-      }
-      return false;
-    })
-  }, [isClickedExistBtn, signupValid])
-
-  // 하나라도 비어있으면 비활성화
-  useEffect(() => {
-    setSignupValid((prev) => {
-      for (const [key, value] of Object.entries(inputVal)) {
-        console.log(value.length)
-        if (value.length === 0) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, []);
-
-  // 아이디 중복이면 비활성화
-  useEffect(() => {
-    setSignupValid((prev) => {
-      if (isExist) {
-        return false;
       } else {
-        return true;
+        return false;
       }
     })
-  }, [isExist])
-
+  }, [isClickedExistBtn, signupValid, isExist, inputVal.password, inputVal.passwordCheck])
+ 
+  // input의 필드별 입력값 저장
   const onChangeHandler = (e) => {
     if (isClickedExistBtn && e.target.name === 'ID') {
       setIsClickedExistBtn((prev) => !prev);
@@ -95,23 +74,10 @@ const Signup = () => {
     } else {
       dispatch({ type: e.target.name, value: e.target.value });
     }
-    if (e.target.name === '비밀번호 확인') {
-      passwordCheckHandler(e);
-    }
-  };
-
-  const passwordCheckHandler = (e) => {
-    const passwordCheckVal = e.target.value;
-    if (passwordCheckVal === inputVal.password) {
-      setSignupValid(true);
-    } else {
-      setSignupValid(false);
-    }
   };
 
   // 중복 확인 버튼
   // Get 요청 결과를 isExist state에 업데이트
-  // 중복된 값일 경우 useRef로 접근하여 input값 초기화
   const onClickDuplicateBtn = async (e) => {
     e.preventDefault();
 
