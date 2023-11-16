@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ContentWrapper from '../Layout/ContentWrapper';
@@ -6,6 +7,7 @@ import AuthContext from '../../context/authContext';
 import API from '../../api';
 
 const MyPage = (props) => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({
     id: '',
@@ -24,8 +26,13 @@ const MyPage = (props) => {
     getUserData();
   }, [authContext.id]);
 
+  const logoutHandler = (e) => {
+    e.preventDefault();
+    navigate('/login');
+  }
+
   return (
-    <ContentWrapper header={'MY PAGE'}>
+    <ContentWrapper header={'MY PAGE'} >
       <ProfileWrapper>
         <ProfileImg src="/img/profileImg.jpeg" alt="프로필사진" />
         <InfoWrapper>
@@ -34,7 +41,7 @@ const MyPage = (props) => {
         </InfoWrapper>
       </ProfileWrapper>
 
-      <LogoutBtn>로그아웃</LogoutBtn>
+      <LogoutBtn onClick={logoutHandler}>로그아웃</LogoutBtn>
     </ContentWrapper>
   );
 };
