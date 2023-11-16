@@ -53,7 +53,12 @@ const Signup = () => {
   const [isClickedExistBtn, setIsClickedExistBtn] = useState(false);
 
   const onChangeHandler = (e) => {
-    dispatch({ type: e.target.name, value: e.target.value });
+    if (isClickedExistBtn && e.target.name === 'ID') {
+      setIsClickedExistBtn(prev => !prev);
+      dispatch({ type: e.target.name, value: e.target.value });
+    } else {
+      dispatch({ type: e.target.name, value: e.target.value });
+    }
   };
 
   // 중복 확인 버튼
