@@ -36,6 +36,10 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'Pretendard-Regular';
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
 `;
 
