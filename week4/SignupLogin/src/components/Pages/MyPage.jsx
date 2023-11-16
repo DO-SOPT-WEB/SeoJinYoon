@@ -1,30 +1,31 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ContentWrapper from '../Layout/ContentWrapper';
-import AuthContext from '../../context/authContext';
 import API from '../../api';
 
 const MyPage = (props) => {
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
+
   const [userInfo, setUserInfo] = useState({
     id: '',
     nickname: '',
   })
 
+  const {userId} = useParams();
+
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await API.get(`api/v1/members/${authContext.id}`);
+        const response = await API.get(`api/v1/members/${userId}`);
         setUserInfo({id: response.data.username, nickname: response.data.nickname});
       } catch (error) {
         console.log(error.message);
       }
     };
     getUserData();
-  }, [authContext.id]);
+  }, [userId]);
 
   const logoutHandler = (e) => {
     e.preventDefault();

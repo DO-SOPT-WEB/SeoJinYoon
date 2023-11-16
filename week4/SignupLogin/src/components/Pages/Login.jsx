@@ -9,7 +9,6 @@ import ContentWrapper from '../Layout/ContentWrapper';
 import InputWrapper from '../Layout/InputWrapper';
 import BtnWrapper from '../Layout/BtnWrapper';
 import Input from '../UI/Input';
-import AuthContext from '../../context/authContext';
 
 
 const initialState = {
@@ -35,7 +34,6 @@ const reducerFn = (state, action) => {
 const Login = () => {
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
 
   const onClickSignup = () => {
     navigate('/signup');
@@ -61,13 +59,9 @@ const Login = () => {
         }
       );
       const userInfo = response.data;
-      authContext.setAuthData({
-        id: userInfo.id,
-        username: userInfo.username,
-        nickname: userInfo.nickname,
-      })
-      navigate(`/mypage/:${userInfo.id}`)
+      navigate(`/mypage/${userInfo.id}`)
     } catch (error) {
+      console.log('로그인실패!')
       console.log(error.message);
     }
   };
