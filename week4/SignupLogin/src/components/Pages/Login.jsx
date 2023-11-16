@@ -1,25 +1,73 @@
-import React from 'react';
+import React, { useState, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { LOGIN_LABEL, LOGIN_PLACEHOLDER } from '../../assets/constants/constants';
+import API from '../../api';
 
 import ContentWrapper from '../Layout/ContentWrapper';
 import InputWrapper from '../Layout/InputWrapper';
 import BtnWrapper from '../Layout/BtnWrapper';
 import Input from '../UI/Input';
 
+const initialState = {
+  id: '',
+  password: '',
+};
+
+const reducerFn = (state, action) => {
+  switch (action.type) {
+    case 'ID':
+      return {
+        ...state,
+        id: action.value,
+      };
+    case 'PASSWORD':
+      return {
+        ...state,
+        password: action.value,
+      };
+  }
+};
+
 const Login = () => {
+  const [inputVal, dispatch] = useReducer(reducerFn, initialState);
   const navigate = useNavigate();
+
   const onClickSignup = () => {
     navigate('/signup');
   };
 
+  const onChangeHandler = (e) => {
+    dispatch({ type: e.target.name, value: e.target.value });
+  };
+
+  const onLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await API.post(
+        `api/v1/members/sign-in`,
+        {
+          username: `${inputVal.id}`,
+          password: `${inputVal.password}`,
+        },
+        {
+          header: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <ContentWrapper header={'로그인'}>
+    <ContentWrapper header={'로그인'} onSubmit={onLoginSubmit}>
       <InputWrapper>
         {LOGIN_LABEL.map((label, idx) => (
-          <Input key={idx} label={label} placeholder={LOGIN_PLACEHOLDER[idx]} />
+          <Input key={idx} label={label} placeholder={LOGIN_PLACEHOLDER[idx]} onChange={onChangeHandler} />
         ))}
       </InputWrapper>
 
