@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useRef } from 'react';
+import React, { useState, useReducer, useEffect} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -44,8 +44,6 @@ const reducerFn = (state, action) => {
 };
 
 const Signup = () => {
-  const userNameRef = useRef();
-
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
   // 아이디 중복여부 bool
   const [isExist, setIsExist] = useState(false);
@@ -53,6 +51,42 @@ const Signup = () => {
   const [isClickedExistBtn, setIsClickedExistBtn] = useState(false);
   // 회원가입 버튼 활성화
   const [signupValid, setSignupValid] = useState(false);
+
+
+  // 중복체크 하지 않은 경우 비활성화
+  useEffect(() => {
+    console.log(isClickedExistBtn);
+    setSignupValid((prev)=>{
+      if(isClickedExistBtn) {
+        return true;
+      }
+      return false;
+    })
+  }, [isClickedExistBtn, signupValid])
+
+  // 하나라도 비어있으면 비활성화
+  useEffect(() => {
+    setSignupValid((prev) => {
+      for (const [key, value] of Object.entries(inputVal)) {
+        console.log(value.length)
+        if (value.length === 0) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, []);
+
+  // 아이디 중복이면 비활성화
+  useEffect(() => {
+    setSignupValid((prev) => {
+      if (isExist) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+  }, [isExist])
 
   const onChangeHandler = (e) => {
     if (isClickedExistBtn && e.target.name === 'ID') {
@@ -94,7 +128,6 @@ const Signup = () => {
       if (data.isExist) {
         setIsClickedExistBtn(true);
         console.log('이미 사용 중인 아이디입니다.');
-        userNameRef.current.value = '';
       } else {
         setIsClickedExistBtn(true);
       }
@@ -114,7 +147,6 @@ const Signup = () => {
             placeholder={SIGNUP_PLACEHOLDER[idx]}
             onChange={onChangeHandler}
             onClick={onClickDuplicateBtn}
-            refVal={idx === 0 ? userNameRef : null}
             isDuplicate={isExist}
             btnClicked={isClickedExistBtn}
           />

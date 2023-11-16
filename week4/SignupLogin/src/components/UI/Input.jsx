@@ -11,7 +11,6 @@ const Input = (props) => {
         placeholder={props.placeholder}
         content={props.content}
         onChange={props.onChange}
-        ref={props.refVal}
       ></UserInput>
       {props.content === '중복체크' && (
         <IsExistIdBtn onClick={props.onClick} $isDuplicate={props.isDuplicate} $isBtnClicked={props.btnClicked}>
