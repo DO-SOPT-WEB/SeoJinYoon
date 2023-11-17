@@ -35,25 +35,29 @@ const reducerFn = (state, action) => {
 const portalElement = document.getElementById('modal');
 
 const Login = () => {
+  // 로그인 폼 입력값
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
+  // 토스트 모달 
   const [toastState, setToastState] = useState({
     message: '',
     flag: false,
   });
   const navigate = useNavigate();
 
+  // 회원가입으로 이동
   const onClickSignup = () => {
     navigate('/signup');
   };
 
+  // 아이디, 비밀번호 업데이트
   const onChangeHandler = (e) => {
     dispatch({ type: e.target.name, value: e.target.value });
   };
 
+  // 로그인 요청
   const onLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(inputVal);
       const response = await API.post(
         `api/v1/members/sign-in`,
         {
@@ -69,7 +73,6 @@ const Login = () => {
       const userInfo = response.data;
       navigate(`/mypage/${userInfo.id}`);
     } catch (error) {
-      console.log(error.response.data.message);
       setToastState({ message: error.response.data.message, flag: true });
     }
   };

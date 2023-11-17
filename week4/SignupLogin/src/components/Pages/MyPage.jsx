@@ -7,14 +7,15 @@ import API from '../../api';
 
 const MyPage = (props) => {
   const navigate = useNavigate();
+  const { userId } = useParams(); // URL에서 유저 id 받아오기
 
+  // 유저 정보 저장
   const [userInfo, setUserInfo] = useState({
     id: '',
     nickname: '',
   });
 
-  const { userId } = useParams();
-
+  // GET 유저 정보 받아와서 userInfo state에 저장
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -27,6 +28,7 @@ const MyPage = (props) => {
     getUserData();
   }, [userId]);
 
+  // 로그아웃 연결
   const logoutHandler = (e) => {
     e.preventDefault();
     navigate('/login');

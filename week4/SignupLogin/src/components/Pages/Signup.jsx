@@ -52,13 +52,14 @@ const Signup = () => {
   const [isClickedExistBtn, setIsClickedExistBtn] = useState(false);
   // 회원가입 버튼 활성화
   const [signupValid, setSignupValid] = useState(false);
+  const navigate = useNavigate();
 
   // 회원가입 활성화
   useEffect(() => {
     const idValid = !isExist && isClickedExistBtn && inputVal.username.length !== 0;
     const passwordValid = inputVal.password.length !== 0 && inputVal.password === inputVal.passwordCheck;
     const nicknameValid = inputVal.nickname.length !== 0;
-    console.log({idValid, passwordValid, nicknameValid});
+
     setSignupValid((prev) => {
       if (idValid && passwordValid && nicknameValid) {
         return true;
@@ -80,6 +81,7 @@ const Signup = () => {
 
   // 중복 확인 버튼
   // Get 요청 결과를 isExist state에 업데이트
+  // 중복 버튼 클릭 여부 isClickedExistBtn state에 업데이트
   const onClickDuplicateBtn = async (e) => {
     e.preventDefault();
 
@@ -104,9 +106,8 @@ const Signup = () => {
     }
   };
 
-  const navigate = useNavigate();
+  // 회원가입 요청
   const onSignupSubmit = async (e) => {
-    console.log(inputVal.password);
     e.preventDefault();
     try {
       const response = await API.post(
@@ -122,7 +123,6 @@ const Signup = () => {
           },
         }
       );
-      console.log(response);
       navigate('/login');
     } catch (error) {
       console.log(error.message);
