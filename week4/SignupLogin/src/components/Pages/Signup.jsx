@@ -167,6 +167,7 @@ const SignupBtn = styled.button`
 
   font-size: 17px;
   font-weight: bold;
+  cursor: ${({ $valid }) => ($valid ? 'pointer' : 'default')};
   background-color: ${({ $valid, theme }) => ($valid ? theme.colors.darkGreen : theme.colors.gray)};
   color: ${({ $valid, theme }) => ($valid ? theme.colors.ivory : theme.colors.white)};
 `;
