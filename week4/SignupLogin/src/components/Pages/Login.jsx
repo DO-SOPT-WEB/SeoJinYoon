@@ -91,9 +91,9 @@ const Login = () => {
           회원가입
         </LoginBtn>
       </BtnWrapper>
-      {toastState.message.length === 0
-        ? null
-        : createPortal(<ErrorToast setToastState={setToastState}>{toastState.message}</ErrorToast>, portalElement)}
+      {toastState.flag
+        ? createPortal(<ErrorToast setToastState={setToastState}>{toastState.message}</ErrorToast>, portalElement)
+        : null}
     </ContentWrapper>
   );
 };
