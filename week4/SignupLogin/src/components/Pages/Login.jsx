@@ -1,5 +1,6 @@
 import React, { useState, useReducer, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
 import { LOGIN_LABEL, LOGIN_PLACEHOLDER } from '../../assets/constants/constants';
@@ -9,6 +10,7 @@ import ContentWrapper from '../Layout/ContentWrapper';
 import InputWrapper from '../Layout/InputWrapper';
 import BtnWrapper from '../Layout/BtnWrapper';
 import Input from '../UI/Input';
+import ErrorToast from '../UI/ErrorToast';
 
 
 const initialState = {
@@ -31,8 +33,14 @@ const reducerFn = (state, action) => {
   }
 };
 
+const portalElement = document.getElementById('modal');
+
 const Login = () => {
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
+  const [toastState, setToastState] = useState({
+    message: '',
+    flag: false,
+  });
   const navigate = useNavigate();
 
   const onClickSignup = () => {
@@ -46,6 +54,7 @@ const Login = () => {
   const onLoginSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(inputVal);
       const response = await API.post(
         `api/v1/members/sign-in`,
         {
@@ -61,8 +70,8 @@ const Login = () => {
       const userInfo = response.data;
       navigate(`/mypage/${userInfo.id}`)
     } catch (error) {
-      console.log('로그인실패!')
-      console.log(error.message);
+      console.log(error.response.data.message);
+      setToastState({message: error.response.data.message, flag: true});
     }
   };
 
@@ -80,6 +89,7 @@ const Login = () => {
           회원가입
         </LoginBtn>
       </BtnWrapper>
+      {toastState.message.length === 0 ? null : createPortal(<ErrorToast setToastState={setToastState}>{toastState.message}</ErrorToast>, portalElement)}
     </ContentWrapper>
   );
 };
