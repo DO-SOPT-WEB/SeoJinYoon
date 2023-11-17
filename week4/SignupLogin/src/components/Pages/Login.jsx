@@ -107,6 +107,6 @@ const LoginBtn = styled.button`
 
   font-size: 17px;
   font-weight: bold;
-  background-color: ${({ $login, theme }) => ($login? theme.colors.green : theme.colors.lightGreen)};
-  color: ${({ $login, theme }) => ($login? theme.colors.white : theme.colors.white)};
+  background-color: ${({ $login, theme }) => ($login? theme.colors.green : theme.colors.darkGreen)};
+  color: ${({ $login, theme }) => ($login? theme.colors.white : theme.colors.ivory)};
 `;

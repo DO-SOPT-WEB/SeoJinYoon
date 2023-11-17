@@ -98,14 +98,15 @@ const Key = styled.span`
 `;
 const Value = styled.span`
   font-size: 15px;
-  color: ${({ theme }) => theme.colors.lightWhite};
+  color: ${({ theme }) => theme.colors.ivory};
 `;
 
 const LogoutBtn = styled.button`
   padding: 1rem;
   width: 10rem;
   font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
-  background-color: ${({ theme }) => theme.colors.gray};
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.brown};
+  background-color: ${({ theme }) => theme.colors.darkIvory};
   border-radius: 0.5rem;
 `;

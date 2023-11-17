@@ -64,6 +64,9 @@ const IsExistIdBtn = styled.button`
   background-color: ${({ $isBtnClicked, $isDuplicate, theme }) =>
     !$isBtnClicked ? 
         theme.colors.black : 
-        ($isDuplicate ? theme.colors.red : theme.colors.green)};
-  color: ${({ theme }) => theme.colors.white};
+        ($isDuplicate ? theme.colors.red : theme.colors.darkGreen)};
+  color: ${({ $isBtnClicked, $isDuplicate, theme }) =>
+  !$isBtnClicked ? 
+      theme.colors.white : 
+      ($isDuplicate ? theme.colors.white : theme.colors.ivory)};
 `;
