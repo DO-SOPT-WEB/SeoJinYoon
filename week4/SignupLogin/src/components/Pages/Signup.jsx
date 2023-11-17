@@ -44,6 +44,7 @@ const reducerFn = (state, action) => {
 };
 
 const Signup = () => {
+  // 입력값 저장
   const [inputVal, dispatch] = useReducer(reducerFn, initialState);
   // 아이디 중복여부 bool
   const [isExist, setIsExist] = useState(false);
@@ -52,11 +53,12 @@ const Signup = () => {
   // 회원가입 버튼 활성화
   const [signupValid, setSignupValid] = useState(false);
 
+  // 회원가입 활성화
   useEffect(() => {
     const idValid = !isExist && isClickedExistBtn && inputVal.username.length !== 0;
     const passwordValid = inputVal.password.length !== 0 && inputVal.password === inputVal.passwordCheck;
     const nicknameValid = inputVal.nickname.length !== 0;
-
+    console.log({idValid, passwordValid, nicknameValid});
     setSignupValid((prev) => {
       if (idValid && passwordValid && nicknameValid) {
         return true;
@@ -64,7 +66,7 @@ const Signup = () => {
         return false;
       }
     });
-  }, [isClickedExistBtn, signupValid, isExist, inputVal.password, inputVal.passwordCheck]);
+  }, [isClickedExistBtn, signupValid, isExist, inputVal.password, inputVal.passwordCheck, inputVal.nickname]);
 
   // input의 필드별 입력값 저장
   const onChangeHandler = (e) => {
