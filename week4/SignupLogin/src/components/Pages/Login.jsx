@@ -12,7 +12,6 @@ import BtnWrapper from '../Layout/BtnWrapper';
 import Input from '../UI/Input';
 import ErrorToast from '../UI/ErrorToast';
 
-
 const initialState = {
   id: '',
   password: '',
@@ -68,10 +67,10 @@ const Login = () => {
         }
       );
       const userInfo = response.data;
-      navigate(`/mypage/${userInfo.id}`)
+      navigate(`/mypage/${userInfo.id}`);
     } catch (error) {
       console.log(error.response.data.message);
-      setToastState({message: error.response.data.message, flag: true});
+      setToastState({ message: error.response.data.message, flag: true });
     }
   };
 
@@ -84,12 +83,14 @@ const Login = () => {
       </InputWrapper>
 
       <BtnWrapper>
-        <LoginBtn type="submit">로그인</LoginBtn>
-        <LoginBtn type="button" onClick={onClickSignup}>
+        <LoginBtn $login={true} type="submit">로그인</LoginBtn>
+        <LoginBtn $login={false} type="button" onClick={onClickSignup}>
           회원가입
         </LoginBtn>
       </BtnWrapper>
-      {toastState.message.length === 0 ? null : createPortal(<ErrorToast setToastState={setToastState}>{toastState.message}</ErrorToast>, portalElement)}
+      {toastState.message.length === 0
+        ? null
+        : createPortal(<ErrorToast setToastState={setToastState}>{toastState.message}</ErrorToast>, portalElement)}
     </ContentWrapper>
   );
 };
@@ -106,6 +107,6 @@ const LoginBtn = styled.button`
 
   font-size: 17px;
   font-weight: bold;
-  background-color: ${({ theme }) => theme.colors.green};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ $login, theme }) => ($login? theme.colors.green : theme.colors.lightGreen)};
+  color: ${({ $login, theme }) => ($login? theme.colors.white : theme.colors.white)};
 `;

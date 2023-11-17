@@ -11,15 +11,15 @@ const MyPage = (props) => {
   const [userInfo, setUserInfo] = useState({
     id: '',
     nickname: '',
-  })
+  });
 
-  const {userId} = useParams();
+  const { userId } = useParams();
 
   useEffect(() => {
     const getUserData = async () => {
       try {
         const response = await API.get(`api/v1/members/${userId}`);
-        setUserInfo({id: response.data.username, nickname: response.data.nickname});
+        setUserInfo({ id: response.data.username, nickname: response.data.nickname });
       } catch (error) {
         console.log(error.message);
       }
@@ -30,15 +30,19 @@ const MyPage = (props) => {
   const logoutHandler = (e) => {
     e.preventDefault();
     navigate('/login');
-  }
+  };
 
   return (
-    <ContentWrapper header={'MY PAGE'} >
+    <ContentWrapper header={'MY PAGE'}>
       <ProfileWrapper>
         <ProfileImg src="/img/profileImg.jpeg" alt="프로필사진" />
         <InfoWrapper>
-          <InfoDiv>ID : {userInfo.id}</InfoDiv>
-          <InfoDiv>닉네임 : {userInfo.nickname}</InfoDiv>
+          <InfoDiv>
+            <Key>아이디 : </Key> <Value>{userInfo.id}</Value>
+          </InfoDiv>
+          <InfoDiv>
+            <Key>닉네임 : </Key> <Value>{userInfo.nickname}</Value>
+          </InfoDiv>
         </InfoWrapper>
       </ProfileWrapper>
 
@@ -76,12 +80,25 @@ const InfoWrapper = styled.div`
 `;
 
 const InfoDiv = styled.div`
+  display: flex;
+  align-items: center;
+
   width: 100%;
   padding: 12px;
   font-size: 15px;
-  background-color: ${({ theme }) => theme.colors.green};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.darkGreen};
   border-radius: 0.5rem;
+`;
+
+const Key = styled.span`
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.ivory};
+`;
+const Value = styled.span`
+  font-size: 15px;
+  color: ${({ theme }) => theme.colors.lightWhite};
 `;
 
 const LogoutBtn = styled.button`
